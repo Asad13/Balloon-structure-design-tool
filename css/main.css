@@ -1,6 +1,6 @@
 * {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: Quicksand, Tahoma, Arial, sans-serif;
@@ -13,9 +13,9 @@ main {
   background: #f2f2f2;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 p.section-text {
@@ -36,7 +36,7 @@ p.section-text {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 /* This section contains styling for each of the button(Buttons at the top)*/
@@ -96,8 +96,8 @@ p.section-text {
 
 .tools-section .item {
   -webkit-box-flex: 25%;
-      -ms-flex: 25%;
-          flex: 25%;
+  -ms-flex: 25%;
+  flex: 25%;
   max-width: 25%;
   z-index: 1;
 }
@@ -126,8 +126,8 @@ a {
 .sections {
   display: none;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .sections:nth-child(1) {
@@ -155,7 +155,7 @@ a {
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   width: 100%;
 }
 
@@ -166,7 +166,7 @@ select {
   right: 12px;
   top: 50%;
   -webkit-transform: translateY(-7px);
-          transform: translateY(-7px);
+  transform: translateY(-7px);
   border: 6px solid transparent;
   border-top: 8px solid black;
   cursor: pointer;
@@ -179,7 +179,7 @@ select {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 /* Applying margin to buttons in Modifica column */
@@ -198,8 +198,8 @@ select {
 .width-conatiner,
 .height-conatiner {
   -webkit-box-flex: 40%;
-      -ms-flex: 40%;
-          flex: 40%;
+  -ms-flex: 40%;
+  flex: 40%;
   max-width: 40%;
   margin-right: 10%;
 }
@@ -272,15 +272,15 @@ input[type="number"] {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   margin-bottom: 1rem;
 }
 
 /* Styling for Initial Colors */
 .initial-colors {
   -webkit-box-flex: 40%;
-      -ms-flex: 40%;
-          flex: 40%;
+  -ms-flex: 40%;
+  flex: 40%;
   max-width: 40%;
   display: inline-block;
   padding: 10px 20px;
@@ -312,7 +312,7 @@ input[type="number"] {
   background: rgba(0, 0, 0, 0.05);
   cursor: not-allowed;
   -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .ricalca-btns-images {
@@ -340,7 +340,7 @@ input[type="range"] {
   -webkit-appearance: none;
   /* Override default CSS styles */
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   width: 50%;
   /* Full-width */
   height: 8px;
@@ -351,7 +351,7 @@ input[type="range"] {
   /* Remove outline */
   border: 1px solid #0f0f0f;
   -webkit-box-shadow: 1px 2px 1px 0 #0f0f0f;
-          box-shadow: 1px 2px 1px 0 #0f0f0f;
+  box-shadow: 1px 2px 1px 0 #0f0f0f;
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
@@ -368,7 +368,7 @@ input[type="range"] {
   border: 1px solid #0f0f0f;
   border-radius: 3px;
   -webkit-box-shadow: 1px 2px 1px 0 #0f0f0f;
-          box-shadow: 1px 2px 1px 0 #0f0f0f;
+  box-shadow: 1px 2px 1px 0 #0f0f0f;
   cursor: pointer;
   /* Cursor on hover */
 }
@@ -395,6 +395,10 @@ input[type="range"] {
   vertical-align: middle;
 }
 
+.selectedBackground {
+  color: #616060;
+}
+
 /* Style for background image upload section */
 .Sfondo-container {
   width: 100%;
@@ -404,14 +408,14 @@ input[type="range"] {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   text-align: center;
 }
 
@@ -433,6 +437,7 @@ input[type="range"] {
   font-size: 1rem;
   height: 38px;
   line-height: 38px;
+  color: #616060;
 }
 
 .balloons {
@@ -516,8 +521,8 @@ input[type="range"] {
 
 .edit-screen .edit-panel {
   -webkit-box-flex: 25%;
-      -ms-flex: 25%;
-          flex: 25%;
+  -ms-flex: 25%;
+  flex: 25%;
   max-width: 25%;
 }
 
@@ -527,8 +532,8 @@ input[type="range"] {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   margin-bottom: 5px;
   width: 100%;
 }
@@ -542,7 +547,7 @@ input[type="range"] {
   -webkit-appearance: none;
   /* Override default CSS styles */
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   width: 70%;
   /* Full-width */
   height: 5px;
@@ -604,8 +609,8 @@ input[type="range"] {
 
 .edit-screen .preview-panel {
   -webkit-box-flex: 75%;
-      -ms-flex: 75%;
-          flex: 75%;
+  -ms-flex: 75%;
+  flex: 75%;
   max-width: 75%;
   padding: 0 1rem 1rem;
 }
@@ -634,8 +639,8 @@ input[type="range"] {
 
 #Salva-section .item {
   -webkit-box-flex: 23%;
-      -ms-flex: 23%;
-          flex: 23%;
+  -ms-flex: 23%;
+  flex: 23%;
   max-width: 23%;
 }
 
@@ -705,8 +710,8 @@ input[type="range"] {
   }
   .tools-section-btns {
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
   }
   .tools-section-btn {
     margin-bottom: 5px;
@@ -728,16 +733,16 @@ input[type="range"] {
   }
   .tools-section .item {
     -webkit-box-flex: 100%;
-        -ms-flex: 100%;
-            flex: 100%;
+    -ms-flex: 100%;
+    flex: 100%;
     max-width: 100%;
     margin-bottom: 1rem;
   }
   .sections {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
   input,
   select {
@@ -749,26 +754,26 @@ input[type="range"] {
   }
   .initial-colors {
     -webkit-box-flex: 45%;
-        -ms-flex: 45%;
-            flex: 45%;
+    -ms-flex: 45%;
+    flex: 45%;
     max-width: 45%;
   }
   .edit-screen {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
   .edit-screen .edit-panel {
     -webkit-box-flex: 100%;
-        -ms-flex: 100%;
-            flex: 100%;
+    -ms-flex: 100%;
+    flex: 100%;
     max-width: 100%;
   }
   .edit-screen .preview-panel {
     -webkit-box-flex: 100%;
-        -ms-flex: 100%;
-            flex: 100%;
+    -ms-flex: 100%;
+    flex: 100%;
     max-width: 100%;
   }
   .edit-screen .preview {
@@ -779,8 +784,8 @@ input[type="range"] {
   }
   #Salva-section .item {
     -webkit-box-flex: 100%;
-        -ms-flex: 100%;
-            flex: 100%;
+    -ms-flex: 100%;
+    flex: 100%;
     max-width: 100%;
     margin-bottom: 1.5rem;
   }
@@ -792,19 +797,19 @@ input[type="range"] {
   }
   .tools-section .item {
     -webkit-box-flex: 50%;
-        -ms-flex: 50%;
-            flex: 50%;
+    -ms-flex: 50%;
+    flex: 50%;
     max-width: 50%;
     margin-bottom: 1rem;
   }
   .sections {
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
   }
   #Salva-section .item {
     -webkit-box-flex: 47%;
-        -ms-flex: 47%;
-            flex: 47%;
+    -ms-flex: 47%;
+    flex: 47%;
     max-width: 47%;
     margin-bottom: 1.5rem;
   }
@@ -813,8 +818,8 @@ input[type="range"] {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-flex: 100% !important;
-        -ms-flex: 100% !important;
-            flex: 100% !important;
+    -ms-flex: 100% !important;
+    flex: 100% !important;
     max-width: 100% !important;
   }
   .Colori-consigliati-column .triadic-colors-container,
@@ -824,38 +829,38 @@ input[type="range"] {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     margin-bottom: 1rem;
   }
   .Colori-consigliati-column .Colori-consigliati-item {
     -webkit-box-flex: 50%;
-        -ms-flex: 50%;
-            flex: 50%;
+    -ms-flex: 50%;
+    flex: 50%;
     max-width: 50%;
   }
   /* Styling for Initial Colors */
   .initial-colors {
     -webkit-box-flex: 45%;
-        -ms-flex: 45%;
-            flex: 45%;
+    -ms-flex: 45%;
+    flex: 45%;
     max-width: 45%;
   }
   .edit-screen {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
   .edit-screen .edit-panel {
     -webkit-box-flex: 100%;
-        -ms-flex: 100%;
-            flex: 100%;
+    -ms-flex: 100%;
+    flex: 100%;
     max-width: 100%;
   }
   .edit-screen .preview-panel {
     -webkit-box-flex: 100%;
-        -ms-flex: 100%;
-            flex: 100%;
+    -ms-flex: 100%;
+    flex: 100%;
     max-width: 100%;
   }
   .edit-screen .preview {
@@ -871,11 +876,10 @@ input[type="range"] {
   /* Styling for Initial Colors */
   .initial-colors {
     -webkit-box-flex: 45%;
-        -ms-flex: 45%;
-            flex: 45%;
+    -ms-flex: 45%;
+    flex: 45%;
     max-width: 45%;
     padding: 8px 16px;
     margin-right: 8px;
   }
 }
-/*# sourceMappingURL=main.css.map */

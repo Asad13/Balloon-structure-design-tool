@@ -1150,4 +1150,20 @@ document.getElementById("importFile").addEventListener("change", function () {
 // Update(Refresh) new balloon design in the background
 document.querySelector(".refresh-balloons-sfondo").addEventListener("click", function () {
     svgToPng();
+    shiftValues["left"] = 0;
+    shiftValues["top"] = 0;
+    shiftValues["zoom"] = "50";
+    shiftValues["rotate"] = 0;
+
+    document.getElementById("horizontalShift").value = "0";
+    document.getElementById("horizontalShift").nextElementSibling.innerHTML = shiftValues["left"] + "&percnt;";
+
+    document.getElementById("verticalShift").value = "0";
+    document.getElementById("verticalShift").nextElementSibling.innerHTML = shiftValues["top"] + "&percnt;";
+
+    document.getElementById("rotationalShift").value = "0";
+    document.getElementById("rotationalShift").nextElementSibling.innerHTML = shiftValues["rotate"] + "&deg;";
+
+    document.getElementById("zoomShift").value = "50";
+    document.getElementById("zoomShift").nextElementSibling.innerHTML = shiftValues["zoom"] + "&percnt;";
 });
