@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Balloon Design Tool</title>
+</head>
+
+<body>
+    <!-- Contains the full page -->
+    <main>
+        <!-- This section contains all the options to create the designs -->
+        <section class="design-tools-section">
+            <!-- This section contains all the buttons to navigate through different sections
+        to deisgn the ballons -->
+            <section class="tools-section-btns">
+                <button type="button" class="tools-section-btn selectedBtn"
+                    id="Struttura-section-btn">Struttura</button>
+                <button type="button" class="tools-section-btn" id="Colori-section-btn">Colori</button>
+                <button type="button" class="tools-section-btn" id="Ricalca-section-btn">Ricalca</button>
+                <button type="button" class="tools-section-btn" id="Sfondo-section-btn">Sfondo</button>
+                <button type="button" class="tools-section-btn" id="Informazioni-section-btn">Informazioni</button>
+                <button type="button" class="tools-section-btn" id="Salva-section-btn">Salva</button>
+            </section>
+            <!-- This section contains all the tools to create the designs -->
+            <section class="tools-section">
+                <!-- Structure Selecting Section -->
+                <section id="Struttura-section" class="sections">
+                    <!-- Structure Column -->
+                    <div class="item Struttura">
+                        <h3>Struttura</h3>
+                        <div class="select-container" id="structure-select-container">
+                            <select name="structure" id="structure">
+                                <option value="Duplet Square Pack" selected>Duplet Square Pack</option>
+                                <option value="Alternate Size Pack">Alternate Size Pack</option>
+                                <option value="Gridz">Gridz</option>
+                                <option value="Gridz Alternate Horizontal">Gridz Alternate Horizontal</option>
+                                <option value="Gridz Alternate Vertical">Gridz Alternate Vertical</option>
+                                <option value='6" Grid'>6" Grid</option>
+                                <option value='12" Grid'>12" Grid</option>
+                                <option value='12" X-Pattern'>12" X-Pattern</option>
+                                <option value="Column">Column</option>
+                                <option value="Arch">Arch</option>
+                            </select>
+                        </div>
+                        <div class="select-container" id="size-select-container">
+                            <select name="size" id="size">
+                                <option value='3"'>3"</option>
+                                <option value='3.5"'>3.5"</option>
+                                <option value='4"'>4"</option>
+                                <option value='4.5"'>4.5"</option>
+                                <option value='5"' selected>5"</option>
+                                <option value='5.5"'>5.5"</option>
+                                <option value='6"'>6"</option>
+                                <option value='6.5"'>6.5"</option>
+                                <option value='7"'>7"</option>
+                                <option value='7.5"'>7.5"</option>
+                                <option value='8"'>8"</option>
+                                <option value='8.5"'>8.5"</option>
+                                <option value='9"'>9"</option>
+                                <option value='9.5"'>9.5"</option>
+                                <option value='10"'>10"</option>
+                                <option value='10.5"'>10.5"</option>
+                                <option value='11"'>11"</option>
+                                <option value='11.5"'>11.5"</option>
+                                <option value='12"'>12"</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Edit Grid Column -->
+                    <div class="item Modifica-griglia">
+                        <h3>Modifica griglia</h3>
+                        <div class="Modifica-btns-container">
+                            <input type="button" class="Modifica-btns Modifica-row-btns control-btns" id="addRowBtn"
+                                value="Aggiungi riga">
+                            <input type="button" class="Modifica-btns Modifica-Colonna-btns control-btns"
+                                id="addColonnaBtn" value="Aggiungi Colonna">
+                            <input type="button" class="Modifica-btns Modifica-row-btns control-btns" id="deleteRowBtn"
+                                value="Elimina riga">
+                            <input type="button" class="Modifica-btns Modifica-Colonna-btns control-btns"
+                                id="deleteColonnaBtn" value="Elimina Colonna">
+                            <input type="button" class="Modifica-btns Modifica-row-btns control-btns"
+                                id="separateRowBtn" value="Separa righe">
+                            <input type="button" class="Modifica-btns Modifica-Colonna-btns control-btns"
+                                id="separateColonaBtn" value="Separa Colonne">
+                            <input type="button" class="Modifica-btns control-btns drag-activation-buttons"
+                                id="activateDragColoring" value="Abilitare più colorazioni" data-state="disabled">
+                            <input type="button" class="Modifica-btns control-btns drag-activation-buttons"
+                                id="activateDragDecoloring" value="Abilita la decolorazione multipla"
+                                data-state="disabled">
+                        </div>
+                    </div>
+                    <!-- Edit Balloons Columns -->
+                    <div class="item Modifica-palloncini">
+                        <h3>Modifica palloncini</h3>
+                        <div class="Edit-ballons-container">
+                            <div>
+                                <input type="button" class="Edit-ballons-btns control-btns" id="inflateBalloonsBtn"
+                                    value="Gonfia palloncini" disabled tabindex="-1">
+                            </div>
+                            <div>
+                                <input type="button" class="Edit-ballons-btns control-btns" id="deflateBalloonsBtn"
+                                    value="Sgonfia palloncini" disabled tabindex="-1">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dimension Column -->
+                    <div class="item Dimensioni">
+                        <h3>Dimensioni</h3>
+                        <div class="dimension-values-container">
+                            <div class="width-conatiner">
+                                <label for="width">Larghezza(cm):</label>
+                                <input type="number" name="width" id="width" min="0" value="439.91">
+                            </div>
+                            <div class="height-conatiner">
+                                <label for="height">Altezza(cm):</label>
+                                <input type="number" name="height" id="height" min="0" value="134.38">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Color Selecting Section -->
+                <section id="Colori-section" class="sections">
+                    <!-- Show the current selected color and on click shows a color wheel to select color -->
+                    <div class="item">
+                        <!-- Selected Color and Color Picker -->
+                        <div class="color-picker-container">
+                            <label for="colorPicker" class="selectedColor">
+                                Clicca per cambiare colore
+                            </label>
+                            <input type="color" name="colorPicker" id="colorPicker" value="#ffff00">
+                        </div>
+                    </div>
+                    <!-- Colori iniziali column-->
+                    <div class="item">
+                        <h3>Colori iniziali</h3>
+                        <!-- Initial Colors -->
+                        <div class="initial-colors-container">
+                            <span class="initial-colors" id="selectYellow" style="background: #ffff00;">#FFFF00</span>
+                            <span class="initial-colors" id="selectGreen" style="background: #00ff00;">#00FF00</span>
+                            <span class="initial-colors" id="selectSky" style="background: #99cbff;">#99CBFF</span>
+                            <span class="initial-colors" id="selectPink" style="background: #ffc0cb;">#FFC0CB</span>
+                            <span class="initial-colors" id="selectOrange" style="background: #ff6600;">#FF6600</span>
+                            <span class="initial-colors" id="selectBlack"
+                                style="background: #000000;color: #ffffff">#000000</span>
+                            <span class="initial-colors" id="selectWhite"
+                                style="background: #ffffff;color: #000000">#FFFFFF</span>
+                        </div>
+                        <h3>Usati di recente</h3>
+                        <div class="recent-colors-container">
+                            <span class="initial-colors" style="background: #ffff00;">#FFFF00</span>
+                        </div>
+                    </div>
+                    <!-- Colori consigliati column-->
+                    <div class="item Colori-consigliati-column">
+                        <div class="Colori-consigliati-item">
+                            <h3>Colori consigliati</h3>
+                            <a href="https://it.wikipedia.org/wiki/Lista_dei_colori" target="_blank"
+                                rel="noopener noreferrer">Scopri tutti i codici colori</a>
+                            <h4>Complementary</h4>
+                            <div class="complementary-colors-container">
+                                <span class="initial-colors" style="background: #0000ff;">#0000FF</span>
+                            </div>
+                            <h4>Monochromatic</h4>
+                            <div class="monochromatic-colors-container">
+                                <span class="initial-colors" style="background: #ff9900;">#FF9900</span>
+                            </div>
+                            <h4>Triadic</h4>
+                            <div class="triadic-colors-container">
+                                <span class="initial-colors" style="background: #ff9900;">#FF9900</span>
+                                <span class="initial-colors" style="background: #b36b00;">#B36B00</span>
+                                <span class="initial-colors" style="background: #ffe6bf;">#FFE6BF</span>
+                                <span class="initial-colors" style="background: #ffcc80;">#FFCC80</span>
+                                <span class="initial-colors" style="background: #009999;">#009999</span>
+                                <span class="initial-colors" style="background: #006b6b;">#006B6B</span>
+                                <span class="initial-colors" style="background: #bfffff;">#BFFFFF</span>
+                                <span class="initial-colors" style="background: #80ffff;">#80FFFF</span>
+                                <span class="initial-colors" style="background: #330099;">#330099</span>
+                                <span class="initial-colors" style="background: #24006b;">#24006B</span>
+                                <span class="initial-colors" style="background: #d5bfff;">#D5BFFF</span>
+                                <span class="initial-colors" style="background: #aa80ff;">#AA80FF</span>
+                            </div>
+                        </div>
+                        <div class="Colori-consigliati-item">
+                            <h4>Tetradic</h4>
+                            <div class="tetradic-colors-container">
+                                <span class="initial-colors" style="background: #ff9900;">#FF9900</span>
+                                <span class="initial-colors" style="background: #b36b00;">#B36B00</span>
+                                <span class="initial-colors" style="background: #ffe6bf;">#FFE6BF</span>
+                                <span class="initial-colors" style="background: #ffcc80;">#FFCC80</span>
+                                <span class="initial-colors" style="background: #0033cc;">#0033CC</span>
+                                <span class="initial-colors" style="background: #00248f;">#00248F</span>
+                                <span class="initial-colors" style="background: #bfcfff;">#BFCFFF</span>
+                                <span class="initial-colors" style="background: #809fff;">#809FFF</span>
+                                <span class="initial-colors" style="background: #400099;">#400099</span>
+                                <span class="initial-colors" style="background: #2d006b;">#2D006B</span>
+                                <span class="initial-colors" style="background: #dabfff;">#DABFFF</span>
+                                <span class="initial-colors" style="background: #b580ff;">#B580FF</span>
+                                <span class="initial-colors" style="background: #ffe500;">#FFE500</span>
+                                <span class="initial-colors" style="background: #b3a000;">#B3A000</span>
+                                <span class="initial-colors" style="background: #fff9bf;">#FFF9BF</span>
+                                <span class="initial-colors" style="background: #fff280;">#FFF280</span>
+                            </div>
+                            <h4>Analogic</h4>
+                            <div class="analogic-colors-container">
+                                <span class="initial-colors" style="background: #ff9900;">#FF9900</span>
+                                <span class="initial-colors" style="background: #b36b00;">#B36B00</span>
+                                <span class="initial-colors" style="background: #ffe6bf;">#FFE6BF</span>
+                                <span class="initial-colors" style="background: #ffcc80;">#FFCC80</span>
+                                <span class="initial-colors" style="background: #ffcc80;">#FFCC00</span>
+                                <span class="initial-colors" style="background: #b38f00;">#B38F00</span>
+                                <span class="initial-colors" style="background: #fff2bf;">#FFF2BF</span>
+                                <span class="initial-colors" style="background: #ffe680;">#FFE680</span>
+                                <span class="initial-colors" style="background: #ff6600;">#FF6600</span>
+                                <span class="initial-colors" style="background: #b34700;">#B34700</span>
+                                <span class="initial-colors" style="background: #ffd9bf;">#FFD9BF</span>
+                                <span class="initial-colors" style="background: #ffb380;">#FFB380</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modifica column-->
+                    <div class="item">
+                        <h3>Modifica</h3>
+                        <input type="button" class="clean-grid" value="Pulisci griglia">
+                    </div>
+                </section>
+                <!-- Tracing section -->
+                <section id="Ricalca-section" class="sections">
+                    <!-- Upload Background button -->
+                    <div class="item">
+                        <!-- Upload background image input -->
+                        <div class="background-picker-container">
+                            <label for="backgroundImage" class="selectedBackground">
+                                Carica immagine di sfondo
+                            </label>
+                            <input type="file" accept="image/*" name="backgroundImage" id="backgroundImage">
+                        </div>
+                    </div>
+                    <!-- Image resize section -->
+                    <div class="item">
+                        <h3>Ridimensiona immagine</h3>
+                        <div class="Ridimensiona-btns">
+                            <button class="ricalca-btns" id="bgImagetraceSmaller" type="button" disabled
+                                tabindex="-1"><img class="ricalca-btns-images"
+                                    src="https://designballoons.com/wp-content/tool/img/smaller.png"
+                                    alt="Smaller Button"></button>
+                            <button class="ricalca-btns" id="bgImagetraceBigger" type="button" disabled
+                                tabindex="-1"><img class="ricalca-btns-images"
+                                    src="https://designballoons.com/wp-content/tool/img/bigger.png"
+                                    alt="Bigger Button"></button>
+                        </div>
+                    </div>
+                    <!-- Move Image section -->
+                    <div class="item">
+                        <h3>Muovi immagine</h3>
+                        <div class="Muovi-btns">
+                            <button class="ricalca-btns" id="bgImagetraceUp" type="button" disabled tabindex="-1"><img
+                                    class="ricalca-btns-images"
+                                    src="https://designballoons.com/wp-content/tool/img/up.png"
+                                    alt="Smaller Button"></button>
+                            <button class="ricalca-btns" id="bgImagetraceDown" type="button" disabled tabindex="-1"><img
+                                    class="ricalca-btns-images"
+                                    src="https://designballoons.com/wp-content/tool/img/down.png"
+                                    alt="Bigger Button"></button>
+                            <button class="ricalca-btns" id="bgImagetraceLeft" type="button" disabled tabindex="-1"><img
+                                    class="ricalca-btns-images"
+                                    src="https://designballoons.com/wp-content/tool/img/left.png"
+                                    alt="Smaller Button"></button>
+                            <button class="ricalca-btns" id="bgImagetraceRight" type="button" disabled
+                                tabindex="-1"><img class="ricalca-btns-images"
+                                    src="https://designballoons.com/wp-content/tool/img/right.png"
+                                    alt="Bigger Button"></button>
+                        </div>
+                        <!-- Movement Precision -->
+                        <h3>Precisione movimento</h3>
+                        <div class="slidercontainer">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="PrecisioneRange">
+                            <span id="PrecisioneValue">50</span>
+                        </div>
+                    </div>
+                    <!-- Edit: Hide background section -->
+                    <div class="item">
+                        <h3>Modifica</h3>
+                        <button type="button" class="toggle-btns ricalca-btns" id="toggleBackground" disabled
+                            tabindex="-1">Nascondi
+                            sfondo</button>
+                    </div>
+                </section>
+                <!-- Background Image Upload Section -->
+                <section id="Sfondo-section" class="sections">
+                    <div class="Sfondo-container">
+                        <h2>Caricamento immagine di sfondo</h2>
+                        <p>Seleziona l'immagine di sfondo che vuoi utilizzare</p>
+                        <!-- Upload background image input -->
+                        <div class="background-picker-container">
+                            <label for="backgroundImageSfondo" class="selectedBackground selectedBackgroundSfondo">
+                                Seleziona una foto
+                            </label>
+                            <input type="file" accept="image/*" name="backgroundImageSfondo" id="backgroundImageSfondo">
+                        </div>
+                    </div>
+                    <!-- This item will popup when a background image is uploaded -->
+                    <div class="edit-screen">
+                        <div class="edit-panel">
+                            <h2>Modifica</h2>
+                            <div class="editslidercontainer">
+                                <!-- Slider to position balloons horizontally left and right -->
+                                <label class="edit-slider-label" for="horizontalShift">Posizione orizzontale</label>
+                                <div>
+                                    <input type="range" min="-100" max="100" value="0" class="edit-slider"
+                                        id="horizontalShift">
+                                    <span class="edit-slider-value" id="horizontalShiftPercentage">0&percnt;</span>
+                                </div>
+                            </div>
+                            <div class="editslidercontainer">
+                                <!-- Slider to position balloons vertically up and down -->
+                                <label class="edit-slider-label" for="verticalShift">Posizione verticale</label>
+                                <div>
+                                    <input type="range" min="-100" max="100" value="0" class="edit-slider"
+                                        id="verticalShift">
+                                    <span class="edit-slider-value" id="verticalShiftPercentage">0&percnt;</span>
+                                </div>
+                            </div>
+                            <div class="editslidercontainer">
+                                <!-- Slider to rotate balloons along X-axis -->
+                                <label class="edit-slider-label" for="rotationalShift">Rotazione</label>
+                                <div>
+                                    <input type="range" min="0" max="360" value="0" class="edit-slider"
+                                        id="rotationalShift">
+                                    <span class="edit-slider-value" id="rotationalShiftPercentage">0&deg;</span>
+                                </div>
+                            </div>
+                            <div class="editslidercontainer">
+                                <!-- Slider to zoom balloons -->
+                                <label class="edit-slider-label" for="zoomShift">Zoom</label>
+                                <div>
+                                    <input type="range" min="1" max="200" value="50" class="edit-slider" id="zoomShift">
+                                    <span class="edit-slider-value" id="zoomShiftPercentage">50&percnt;</span>
+                                </div>
+                            </div>
+                            <input type="button" class="full-width-btns replace-background"
+                                value="Sostituisci immagine di sfondo">
+                            <input type="button" class="full-width-btns refresh-balloons-sfondo"
+                                value="Aggiorna palloncini">
+                            <input type="button" class="full-width-btns save-image" id="saveImageSfondo"
+                                value="Salva immagine">
+                        </div>
+                        <div class="preview-panel">
+                            <div class="preview">
+                                <div class="balloons"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Information Section -->
+                <section id="Informazioni-section" class="sections">
+                    <div class="item">
+                        <h3>Informazioni</h3>
+                        <p class="section-text">Ecco un rapido riepilogo dei palloncini da acquistare per poter
+                            realizzare la struttura qui
+                            sotto:</p>
+                        <div class="information-box">
+                            <h4>Tondo do 5"</h4>
+                            <table class="balloon-info-table" id="Tondo1">
+                                <tr class="balloon-info transparent">
+                                    <td class="balloon-type">Senza colore</td>
+                                    <td class="balloon-color"><span style="background: transparent;"></span></td>
+                                    <td class="balloon-amount">800</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <!-- Salva Section -->
+                <section id="Salva-section" class="sections">
+                    <div class="item">
+                        <h3>Salva immagine</h3>
+                        <p class="section-text">
+                            Da qui puoi salvare un'immagine della tua creazione in diversi modi: semplicemente salvando
+                            quello che vedi a schermo, senza griglia o selezionando un'immagine di sfondo per
+                            "integrarla in un ambiente realistico"
+                        </p>
+                        <input type="button" class="full-width-btns save-image" id="saveImage" value="Salva immagine">
+                        <input type="button" class="full-width-btns save-image-without-grid" id="saveWithoutGrid"
+                            value="Salva immagine (senza griglia)">
+                    </div>
+                    <div class="item">
+                        <h3>Stampa</h3>
+                        <p class="section-text">
+                            Se vuoi, puoi stampare la tua creazione direttamente su carta, così da poterla mostrare ai
+                            tuoi collaboratori e chiedere pareri ed opinioni
+                        </p>
+                        <input type="button" class="full-width-btns press" value="Stampa">
+                    </div>
+                    <div class="item">
+                        <h3>Esportazione</h3>
+                        <p class="section-text">
+                            Se vuoi salvare il tuo lavoro per riprenderlo in un secondo momento, puoi salvare un file da
+                            importare (in futuro) all'interno del sistema e riprendere da dove avevi lasciato
+                        </p>
+                        <input type="button" class="full-width-btns" id="export-file" value="Esporta file">
+                    </div>
+                    <div class="item">
+                        <h3>Importazione</h3>
+                        <p class="section-text">
+                            Se hai salvato un file durante la tua ultima lavorazione, puoi importarlo qui per riprendere
+                            il lavoro da dove lo avevi lasciato.
+                        </p>
+                        <!-- <input type="button" class="full-width-btns import-file" value="Importa file"> -->
+                        <label for="importFile" class="full-width-btns import-file-background">
+                            Importa file
+                        </label>
+                        <input type="file" accept="text/plain" name="importFile" id="importFile">
+                    </div>
+                </section>
+            </section>
+        </section>
+        <!-- This section will contain the svg balloon design structure -->
+        <section class="structure-design-section">
+            <svg class="balloon-structure"></svg>
+        </section>
+    </main>
+    <script src="./js/html2canvas.min.js"></script>
+    <script src="./js/color-scheme.min.js"></script>
+    <script src="./js/functions.js"></script>
+    <script src="./js/create-design.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

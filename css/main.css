@@ -1,0 +1,881 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Quicksand, Tahoma, Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* Container of the full page */
+main {
+  padding: 1.5rem 4rem;
+  background: #f2f2f2;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+p.section-text {
+  margin: 1.5rem 0 1rem;
+  line-height: 1.5;
+  color: #616060;
+}
+
+.full-width-btns {
+  display: block;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+/* This section contains styling for the tools buttons container(Buttons at the top) */
+.tools-section-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+/* This section contains styling for each of the button(Buttons at the top)*/
+.tools-section-btn {
+  margin-right: 5px;
+  background: #ffffff;
+  font-size: 1rem;
+  color: #2e2e2e;
+  outline: none;
+  border: 1px solid #bebebe;
+  border-bottom: none;
+  padding: 5px 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Changing Button(Top buttons) bottom color based on selection to show which button is selected */
+.selectedBtn::after {
+  content: "";
+  height: 5px;
+  width: 100%;
+  background: #ffffff;
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+}
+
+/* This section contains styling for the tools section */
+.tools-section {
+  width: 100%;
+  min-height: 300px;
+  max-height: 425px;
+  padding: 1.5rem 1rem;
+  border: 1px solid #bebebe;
+  background: #ffffff;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  overflow-y: auto;
+  /* This section contains styling for heading of each of the column */
+  /* This section contains styling for each of the column of the tools section */
+}
+
+.tools-section h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.tools-section h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1.5rem 0 1rem;
+}
+
+.tools-section .item {
+  -webkit-box-flex: 25%;
+      -ms-flex: 25%;
+          flex: 25%;
+  max-width: 25%;
+  z-index: 1;
+}
+
+/* General style of all input and select elements */
+input,
+select,
+a {
+  padding: 7px 15px;
+  font-size: 0.85rem;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  color: #616060;
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* This section contains styling for the Struttura section */
+.sections {
+  display: none;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sections:nth-child(1) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/* Container for custom select button */
+.select-container {
+  position: relative;
+}
+
+/* Width of the container containing structure select input*/
+#structure-select-container {
+  width: 70%;
+}
+
+/* Width of the container containing size select input*/
+#size-select-container {
+  width: 40%;
+}
+
+/* Select button styling */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  width: 100%;
+}
+
+/* Making a custom select input with custom dropdown icon */
+.select-container::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  -webkit-transform: translateY(-7px);
+          transform: translateY(-7px);
+  border: 6px solid transparent;
+  border-top: 8px solid black;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+/* Positioning buttons in Modifica column */
+.Modifica-btns-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+/* Applying margin to buttons in Modifica column */
+.Modifica-btns {
+  margin: 2.5px;
+}
+
+/* Positioning elements in dimension column */
+.dimension-values-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/* Styling elements in dimension column */
+.width-conatiner,
+.height-conatiner {
+  -webkit-box-flex: 40%;
+      -ms-flex: 40%;
+          flex: 40%;
+  max-width: 40%;
+  margin-right: 10%;
+}
+
+/* Styling labels in dimension column */
+label {
+  font-size: 1rem;
+  color: #616060;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+/* Styling number input element in dimension column */
+input[type="number"] {
+  padding: 7px 5px;
+  font-size: 1rem;
+  width: 100%;
+  border: none;
+  background: none;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.Edit-ballons-btns {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+/* Selected Color showing rectangle */
+.selectedColor,
+.selectedBackground {
+  display: block;
+  width: 90%;
+  height: 150px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.selectedColor {
+  background: #ffff00;
+  color: #000000;
+}
+
+.selectedBackground {
+  color: #ccc;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Hiding the original color picker [input:color] */
+#colorPicker,
+#backgroundImage,
+#backgroundImageSfondo,
+#importFile {
+  display: block;
+  visibility: hidden;
+  position: relative;
+  top: -15px;
+}
+
+/* Positioning for Initial Colors */
+.initial-colors-container,
+.recent-colors-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+/* Styling for Initial Colors */
+.initial-colors {
+  -webkit-box-flex: 40%;
+      -ms-flex: 40%;
+          flex: 40%;
+  max-width: 40%;
+  display: inline-block;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 7px;
+  color: #0f0f0f;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.toggle-btns {
+  padding: 7px 15px;
+  font-size: 0.85rem;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ricalca-btns {
+  padding: 5px;
+  margin-right: 5px;
+  outline: none;
+  border: none;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.05);
+  cursor: not-allowed;
+  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ricalca-btns-images {
+  width: 23px;
+  height: 23px;
+  opacity: 0.3;
+}
+
+.Muovi-btns {
+  margin-bottom: 1.5rem;
+}
+
+input[type="range"] {
+  padding: 0;
+  border-radius: 0;
+}
+
+.slidercontainer {
+  width: 100%;
+  /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;
+  /* Override default CSS styles */
+  -moz-appearance: none;
+       appearance: none;
+  width: 50%;
+  /* Full-width */
+  height: 8px;
+  /* Specified height */
+  background: #ffffff;
+  /* Grey background */
+  outline: none;
+  /* Remove outline */
+  border: 1px solid #0f0f0f;
+  -webkit-box-shadow: 1px 2px 1px 0 #0f0f0f;
+          box-shadow: 1px 2px 1px 0 #0f0f0f;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Override default look */
+  appearance: none;
+  width: 16px;
+  /* Set a specific slider handle width */
+  height: 38px;
+  /* Slider handle height */
+  background: #ffffff;
+  /* Green background */
+  border: 1px solid #0f0f0f;
+  border-radius: 3px;
+  -webkit-box-shadow: 1px 2px 1px 0 #0f0f0f;
+          box-shadow: 1px 2px 1px 0 #0f0f0f;
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  /* Set a specific slider handle width */
+  height: 38px;
+  /* Slider handle height */
+  background: #ffffff;
+  /* Green background */
+  border: 1px solid #0f0f0f;
+  border-radius: 3px;
+  box-shadow: 1px 2px 1px 0 #0f0f0f;
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+/* Styling Precision range value*/
+#PrecisioneValue {
+  margin-left: 1rem;
+  font-size: 1.3rem;
+  color: #616060;
+  vertical-align: middle;
+}
+
+/* Style for background image upload section */
+.Sfondo-container {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.Sfondo-container h2 {
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.Sfondo-container p {
+  color: #616060;
+  margin-bottom: 1rem;
+}
+
+/* Image upload Button in background image section */
+.selectedBackgroundSfondo {
+  margin: 0 auto;
+  width: 65%;
+  font-size: 1rem;
+  height: 38px;
+  line-height: 38px;
+}
+
+.balloons {
+  position: relative;
+}
+
+#previewImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: auto;
+}
+
+#Informazioni-section h4 {
+  background: #303030;
+  padding: 6px 9px;
+  color: #ffffff;
+  margin: 0;
+}
+
+#Informazioni-section h4:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.balloon-info-table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.balloon-info-table td {
+  text-align: center;
+  padding: 5px 0;
+  font-size: 0.8rem;
+  color: #616060;
+}
+
+.balloon-info-table td:first-child {
+  width: 50%;
+}
+
+.balloon-info-table tr:not(:last-child) td {
+  border-bottom: 1px solid #ccc;
+}
+
+.balloon-color span {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+}
+
+#Sfondo-section {
+  position: relative;
+  height: 370px;
+}
+
+.edit-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  background: #ffffff;
+  /* Left edit panel for positioning ballons on background */
+  /* Styling labels of all slider in the edit section */
+  /* The slider itself */
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  /* Styling The values of sliders*/
+  /* Styling Save Image Button */
+}
+
+.edit-screen h2 {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.edit-screen .edit-panel {
+  -webkit-box-flex: 25%;
+      -ms-flex: 25%;
+          flex: 25%;
+  max-width: 25%;
+}
+
+.edit-screen .editslidercontainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.edit-screen .edit-slider-label {
+  text-align: left;
+  margin-bottom: -5px;
+}
+
+.edit-screen .edit-slider {
+  -webkit-appearance: none;
+  /* Override default CSS styles */
+  -moz-appearance: none;
+       appearance: none;
+  width: 70%;
+  /* Full-width */
+  height: 5px;
+  /* Specified height */
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.05);
+  /* Grey background */
+  outline: none;
+  /* Remove outline */
+  border: 1px solid #ccc;
+}
+
+.edit-screen .edit-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Override default look */
+  appearance: none;
+  width: 17px;
+  /* Set a specific slider handle width */
+  height: 17px;
+  /* Slider handle height */
+  border-radius: 50%;
+  background: #ffffff;
+  /* Green background */
+  border: 1px solid #0f0f0f;
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+.edit-screen .edit-slider::-moz-range-thumb {
+  width: 17px;
+  /* Set a specific slider handle width */
+  height: 17px;
+  /* Slider handle height */
+  border-radius: 50%;
+  background: #ffffff;
+  /* Green background */
+  border: 1px solid #0f0f0f;
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+.edit-screen .edit-slider-value {
+  display: inline-block;
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  width: 68px;
+  padding: 0.5rem;
+  color: #616060;
+  border-radius: 7px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+}
+
+.edit-screen .save-image {
+  background: #2ecc71;
+  color: #ffffff;
+}
+
+.edit-screen .preview-panel {
+  -webkit-box-flex: 75%;
+      -ms-flex: 75%;
+          flex: 75%;
+  max-width: 75%;
+  padding: 0 1rem 1rem;
+}
+
+.edit-screen .preview {
+  width: 100%;
+  height: 100%;
+  background: #333333;
+  border-radius: 9px;
+  position: relative;
+}
+
+.edit-screen .balloons {
+  display: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 9px;
+}
+
+#Salva-section {
+  /* Image upload Button in background image section */
+}
+
+#Salva-section .item {
+  -webkit-box-flex: 23%;
+      -ms-flex: 23%;
+          flex: 23%;
+  max-width: 23%;
+}
+
+#Salva-section .import-file-background {
+  background: rgba(0, 0, 0, 0.05);
+  text-align: center;
+  font-size: 0.85rem;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  color: #616060;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+.structure-design-section {
+  width: 100%;
+  min-height: 380px;
+  margin-top: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.structure-design-section svg {
+  position: absolute;
+  width: 100%;
+  height: 380px;
+  min-height: 380px;
+}
+
+.structure-design-section .balloon-structure-background {
+  width: 50%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  visibility: visible;
+}
+
+@media print {
+  body {
+    width: 21cm;
+    height: 29.7cm;
+    margin: 30mm 45mm 30mm 45mm;
+    /* change the margins as you want them to be. */
+  }
+  body * {
+    visibility: hidden;
+  }
+  .structure-design-section,
+  .structure-design-section * {
+    visibility: visible;
+  }
+  .structure-design-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: inherit;
+  }
+}
+
+/* This section contains styling for mobile or small screen(Below 605px) */
+@media screen and (max-width: 605px) {
+  main {
+    padding: 1rem 1rem;
+  }
+  .tools-section-btns {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .tools-section-btn {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #bebebe;
+  }
+  .tools-section {
+    max-height: 300px;
+  }
+  .selectedBtn {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  .selectedBtn::after {
+    content: "";
+    height: 0;
+    width: 0;
+  }
+  .tools-section {
+    border-top-left-radius: 5px;
+  }
+  .tools-section .item {
+    -webkit-box-flex: 100%;
+        -ms-flex: 100%;
+            flex: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+  .sections {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  input,
+  select {
+    width: 100%;
+  }
+  .selectedColor,
+  .selectedBackground {
+    width: 100%;
+  }
+  .initial-colors {
+    -webkit-box-flex: 45%;
+        -ms-flex: 45%;
+            flex: 45%;
+    max-width: 45%;
+  }
+  .edit-screen {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .edit-screen .edit-panel {
+    -webkit-box-flex: 100%;
+        -ms-flex: 100%;
+            flex: 100%;
+    max-width: 100%;
+  }
+  .edit-screen .preview-panel {
+    -webkit-box-flex: 100%;
+        -ms-flex: 100%;
+            flex: 100%;
+    max-width: 100%;
+  }
+  .edit-screen .preview {
+    height: 150px;
+  }
+  .edit-screen .edit-slider {
+    width: 60%;
+  }
+  #Salva-section .item {
+    -webkit-box-flex: 100%;
+        -ms-flex: 100%;
+            flex: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 606px) and (max-width: 1024px) {
+  main {
+    padding: 1rem 1rem;
+  }
+  .tools-section .item {
+    -webkit-box-flex: 50%;
+        -ms-flex: 50%;
+            flex: 50%;
+    max-width: 50%;
+    margin-bottom: 1rem;
+  }
+  .sections {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  #Salva-section .item {
+    -webkit-box-flex: 47%;
+        -ms-flex: 47%;
+            flex: 47%;
+    max-width: 47%;
+    margin-bottom: 1.5rem;
+  }
+  .Colori-consigliati-column {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 100% !important;
+        -ms-flex: 100% !important;
+            flex: 100% !important;
+    max-width: 100% !important;
+  }
+  .Colori-consigliati-column .triadic-colors-container,
+  .Colori-consigliati-column .tetradic-colors-container,
+  .Colori-consigliati-column .analogic-colors-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .Colori-consigliati-column .Colori-consigliati-item {
+    -webkit-box-flex: 50%;
+        -ms-flex: 50%;
+            flex: 50%;
+    max-width: 50%;
+  }
+  /* Styling for Initial Colors */
+  .initial-colors {
+    -webkit-box-flex: 45%;
+        -ms-flex: 45%;
+            flex: 45%;
+    max-width: 45%;
+  }
+  .edit-screen {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .edit-screen .edit-panel {
+    -webkit-box-flex: 100%;
+        -ms-flex: 100%;
+            flex: 100%;
+    max-width: 100%;
+  }
+  .edit-screen .preview-panel {
+    -webkit-box-flex: 100%;
+        -ms-flex: 100%;
+            flex: 100%;
+    max-width: 100%;
+  }
+  .edit-screen .preview {
+    height: 200px;
+  }
+  .edit-screen .edit-slider {
+    width: 60%;
+  }
+}
+
+/* Styling for landscape tablets and small screen laptops */
+@media screen and (min-width: 1025px) and (max-width: 1250px) {
+  /* Styling for Initial Colors */
+  .initial-colors {
+    -webkit-box-flex: 45%;
+        -ms-flex: 45%;
+            flex: 45%;
+    max-width: 45%;
+    padding: 8px 16px;
+    margin-right: 8px;
+  }
+}
+/*# sourceMappingURL=main.css.map */
