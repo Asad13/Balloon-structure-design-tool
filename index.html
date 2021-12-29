@@ -87,11 +87,14 @@
                                 id="separateRowBtn" value="Separa righe">
                             <input type="button" class="Modifica-btns Modifica-Colonna-btns control-btns"
                                 id="separateColonaBtn" value="Separa Colonne">
-                            <input type="button" class="Modifica-btns control-btns drag-activation-buttons"
-                                id="activateDragColoring" value="Abilitare più colorazioni" data-state="disabled">
-                            <input type="button" class="Modifica-btns control-btns drag-activation-buttons"
+                            <div style="width: 100%">
+                                <input type="button" class="Modifica-btns control-btns drag-activation-buttons"
+                                    id="activateDragColoring" value="Attiva colorazione ad area" data-state="disabled">
+                                <label class="hint">Premi ALT + trascina mouse per decolorare</label>
+                            </div>
+                            <!-- <input type="button" class="Modifica-btns control-btns drag-activation-buttons"
                                 id="activateDragDecoloring" value="Abilita la decolorazione multipla"
-                                data-state="disabled">
+                                data-state="disabled"> -->
                         </div>
                     </div>
                     <!-- Edit Balloons Columns -->
@@ -120,6 +123,9 @@
                                 <label for="height">Altezza(cm):</label>
                                 <input type="number" name="height" id="height" min="0" value="134.38">
                             </div>
+                        </div>
+                        <div style="display: flex;margin-top: 1rem;">
+                            <input type="button" id="impostaDimensioni" value="Imposta dimensioni">
                         </div>
                     </div>
                 </section>
@@ -429,6 +435,7 @@
     <script src="./js/functions.js"></script>
     <script src="./js/create-design.js"></script>
     <script src="./js/main.js"></script>
+    <!-- <script src="./js/main2.js"></script> -->
 </body>
 
 </html>
