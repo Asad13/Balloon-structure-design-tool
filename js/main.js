@@ -21,7 +21,7 @@ const handleBtns = (btn, activate) => {
     }
 }
 
-// Function for activating or disabling any button
+// Function for activating or disabling buttons
 /**
  * @function
  * @name setBtns
@@ -404,7 +404,9 @@ document.querySelector(".clean-grid").addEventListener('click', function () {
     }
 });
 
-// Changing the shape and position of the ballon structure background image:
+// Changing the shape and position of the balloon structure background image:
+
+let movePixel = 50;
 
 function enableRicalcaBtnsActivity(balloonStructureContainer, balloonStructureBackground) {
     // shortening the background image:
@@ -422,28 +424,32 @@ function enableRicalcaBtnsActivity(balloonStructureContainer, balloonStructureBa
     // Moving Up the background image:
     document.getElementById("bgImagetraceUp").addEventListener("click", function () {
         if (balloonStructureBackground.offsetTop > -balloonStructureBackground.clientHeight) {
-            balloonStructureBackground.style.top = balloonStructureBackground.offsetTop - (balloonStructureContainer.clientHeight / 100) + "px";
+            // balloonStructureBackground.style.top = balloonStructureBackground.offsetTop - (balloonStructureContainer.clientHeight / 100) + "px";
+            balloonStructureBackground.style.top = balloonStructureBackground.offsetTop - movePixel + "px";
         }
     });
 
     // Moving Down the background image:
     document.getElementById("bgImagetraceDown").addEventListener("click", function () {
         if (balloonStructureBackground.offsetTop < balloonStructureContainer.clientHeight) {
-            balloonStructureBackground.style.top = balloonStructureBackground.offsetTop + (balloonStructureContainer.clientHeight / 100) + "px";
+            // balloonStructureBackground.style.top = balloonStructureBackground.offsetTop + (balloonStructureContainer.clientHeight / 100) + "px";
+            balloonStructureBackground.style.top = balloonStructureBackground.offsetTop + movePixel + "px";
         }
     });
 
     // Moving Left the background image:
     document.getElementById("bgImagetraceLeft").addEventListener("click", function () {
         if (balloonStructureBackground.offsetLeft > -balloonStructureBackground.clientWidth) {
-            balloonStructureBackground.style.left = balloonStructureBackground.offsetLeft - (balloonStructureContainer.clientWidth / 100) + "px";
+            // balloonStructureBackground.style.left = balloonStructureBackground.offsetLeft - (balloonStructureContainer.clientWidth / 100) + "px";
+            balloonStructureBackground.style.left = balloonStructureBackground.offsetLeft - movePixel + "px";
         }
     });
 
     // Moving Down the background image:
     document.getElementById("bgImagetraceRight").addEventListener("click", function () {
         if (balloonStructureBackground.offsetLeft < balloonStructureContainer.clientWidth) {
-            balloonStructureBackground.style.left = balloonStructureBackground.offsetLeft + (balloonStructureContainer.clientWidth / 100) + "px";
+            // balloonStructureBackground.style.left = balloonStructureBackground.offsetLeft + (balloonStructureContainer.clientWidth / 100) + "px";
+            balloonStructureBackground.style.left = balloonStructureBackground.offsetLeft + movePixel + "px";
         }
     });
 
@@ -494,10 +500,11 @@ document.getElementById("backgroundImage").addEventListener("change", function (
 });
 
 /*
-Updating precision slider value when the slider is moved
+Updating precision slider[Precisione movimento] value when the slider is moved
 */
 
 document.getElementById("PrecisioneRange").addEventListener("input", function () {
+    movePixel = 1 + (100 - this.value);
     document.getElementById("PrecisioneValue").innerHTML = this.value;
 });
 
@@ -614,93 +621,26 @@ const disableBtns = id => {
         }
     }
 }
-// delete one row from the structure
-document.getElementById("deleteRowBtn").addEventListener("click", function () {
-    structureInfo.updating = true;
-    if (!confirmDeleteRow) {
-        this.value = "Conferma";
-        addBalloon = false;
-        removeBalloon = false;
-        rowDelete = true;
-        disableBtns(this.getAttribute("id"));
-        document.querySelector(".structure-design-section").style.opacity = "0.5";
-        let selectedBalloons = document.querySelectorAll(".selected-balloon");
-        for (let i = 0; i < selectedBalloons.length; i++) {
-            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
-                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "none";
-            }
-        }
-        confirmDeleteRow = true;
-    } else {
-        this.value = "Elimina riga";
-        setBtns(structureInfo.structureType);
-        rowDelete = false;
-        document.querySelector(".structure-design-section").style.opacity = "1";
-        confirmDeleteRow = false;
-    }
-});
-
-// delete one column from the structure
-document.getElementById("deleteColonnaBtn").addEventListener("click", function () {
-    structureInfo.updating = true;
-    if (!confirmDeleteColumn) {
-        this.value = "Conferma";
-        addBalloon = false;
-        removeBalloon = false;
-        columnDelete = true;
-        disableBtns(this.getAttribute("id"));
-        document.querySelector(".structure-design-section").style.opacity = "0.5";
-        let selectedBalloons = document.querySelectorAll(".selected-balloon");
-        for (let i = 0; i < selectedBalloons.length; i++) {
-            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
-                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "none";
-            }
-        }
-        confirmDeleteColumn = true;
-    } else {
-        this.value = "Elimina Colonna";
-        setBtns(structureInfo.structureType);
-        columnDelete = false;
-        document.querySelector(".structure-design-section").style.opacity = "1";
-        confirmDeleteColumn = false;
-    }
-});
 
 let activateDragColoring = false;
 document.getElementById("activateDragColoring").addEventListener("click", function () {
+    const lb = document.querySelector('.hint');
     if (!activateDragColoring) {
-        this.value = "Disabilita la colorazione multipla";
+        this.value = "Disattiva colorazione ad area";
         this.setAttribute("data-state", "enabled");
         addMultiple = true;
         activateDragColoring = true;
-        document.getElementById("activateDragDecoloring").value = "Abilita la decolorazione multipla";
-        document.getElementById("activateDragDecoloring").setAttribute("data-state", "disabled");
-        removeMultiple = false;
-        activateDragDecoloring = false;
+        lb.style.display = 'block';
+        // document.getElementById("activateDragDecoloring").value = "Abilita la decolorazione multipla";
+        // document.getElementById("activateDragDecoloring").setAttribute("data-state", "disabled");
+        // removeMultiple = false;
+        // activateDragDecoloring = false;
     } else {
-        this.value = "Abilitare più colorazioni";
+        this.value = "Attiva colorazione ad area";
         this.setAttribute("data-state", "disabled");
         addMultiple = false;
         activateDragColoring = false;
-    }
-});
-
-let activateDragDecoloring = false;
-document.getElementById("activateDragDecoloring").addEventListener("click", function () {
-    if (!activateDragDecoloring) {
-        this.value = "Disabilita la decolorazione multipla";
-        this.setAttribute("data-state", "enabled");
-        removeMultiple = true;
-        activateDragDecoloring = true;
-        addMultiple = false;
-        activateDragColoring = false;
-        document.getElementById("activateDragColoring").value = "Abilitare più colorazioni";
-        document.getElementById("activateDragColoring").setAttribute("data-state", "disabled");
-    } else {
-        this.value = "Abilita la decolorazione multipla";
-        this.setAttribute("data-state", "disabled");
-        removeMultiple = false;
-        activateDragDecoloring = false;
+        lb.style.display = 'none';
     }
 });
 
@@ -745,27 +685,46 @@ document.getElementById("separateColonaBtn").addEventListener("click", function 
 // Inflate the balloons of the structure
 let inflateBalloons = false;
 document.getElementById("inflateBalloonsBtn").addEventListener("click", function () {
-    structureInfo.updating = true;
-    let balloons = document.querySelector(".balloon-structure").children;
+    // structureInfo.updating = true;
+    let balloons = document.querySelectorAll(".balloon");
     if (!inflateBalloons) {
         this.value = "Conferma";
         disableBtns(this.getAttribute("id"));
         for (let i = 0; i < balloons.length; i++) {
-            balloons[i].style.opacity = "0.3";
-            balloons[i].style.cursor = "not-allowed";
-            balloons[i].style.pointerEvents = "none";
-            balloons[i].tabIndex = "-1";
+            balloons[i].setAttributeNS(null, "fill-opacity", "0.3");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "0.3");
+            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+                balloons[i].style.cursor = "not-allowed";
+                balloons[i].style.pointerEvents = "none";
+            }
         }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "none";
+            }
+        }
+        addBalloon = false;
+        inflateBalloonNew = true;
         inflateBalloons = true;
     } else {
         this.value = "Gonfia palloncini";
         setBtns(structureInfo.structureType);
         for (let i = 0; i < balloons.length; i++) {
-            balloons[i].style.opacity = "1";
-            balloons[i].style.cursor = "pointer";
-            balloons[i].style.pointerEvents = "auto";
-            balloons[i].tabIndex = "0";
+            balloons[i].setAttributeNS(null, "fill-opacity", "1");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "1");
+            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+                balloons[i].style.cursor = "pointer";
+                balloons[i].style.pointerEvents = "auto";
+            }
         }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "auto";
+            }
+        }
+        inflateBalloonNew = false;
         inflateBalloons = false;
     }
 });
@@ -773,27 +732,46 @@ document.getElementById("inflateBalloonsBtn").addEventListener("click", function
 // Deflate the balloons of the structure
 let DeflateBalloons = false;
 document.getElementById("deflateBalloonsBtn").addEventListener("click", function () {
-    structureInfo.updating = true;
-    let balloons = document.querySelector(".balloon-structure").children;
+    // structureInfo.updating = true;
+    let balloons = document.querySelectorAll(".balloon");
     if (!DeflateBalloons) {
         this.value = "Conferma";
         disableBtns(this.getAttribute("id"));
         for (let i = 0; i < balloons.length; i++) {
-            balloons[i].style.opacity = "0.3";
-            balloons[i].style.cursor = "not-allowed";
-            balloons[i].style.pointerEvents = "none";
-            balloons[i].tabIndex = "-1";
+            balloons[i].setAttributeNS(null, "fill-opacity", "0.3");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "0.3");
+            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+                balloons[i].style.cursor = "not-allowed";
+                balloons[i].style.pointerEvents = "none";
+            }
         }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "none";
+            }
+        }
+        addBalloon = false;
+        deflateBalloonNew = true;
         DeflateBalloons = true;
     } else {
         this.value = "Sgonfia palloncini";
         setBtns(structureInfo.structureType);
         for (let i = 0; i < balloons.length; i++) {
-            balloons[i].style.opacity = "1";
-            balloons[i].style.cursor = "pointer";
-            balloons[i].style.pointerEvents = "auto";
-            balloons[i].tabIndex = "0";
+            balloons[i].setAttributeNS(null, "fill-opacity", "1");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "1");
+            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+                balloons[i].style.cursor = "pointer";
+                balloons[i].style.pointerEvents = "auto";
+            }
         }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "auto";
+            }
+        }
+        deflateBalloonNew = false;
         DeflateBalloons = false;
     }
 });
@@ -824,7 +802,13 @@ const changeDimension = (structure, size) => {
                     height = parseInt(((dimensions[structure]["baseRowHeight"] + (2 * (currentSize - 3) * 1.334)) * structureInfo.row + ((structureInfo.rowGap) ? 7.62 * structureInfo.row : 0)) * 100) / 100.00;
                     break;
                 case "Gridz":
+                    width = parseInt(((dimensions[structure]["baseColumnWidth"] * (currentSize / 6)) * (structureInfo.column * 4) + ((structureInfo.columnGap) ? (15.24 * (structureInfo.column * 4)) : 0)) * 100) / 100.00;
+                    height = parseInt(((dimensions[structure]["baseRowHeight"] * (currentSize / 6)) * structureInfo.row + ((structureInfo.rowGap) ? (15.24 * structureInfo.row) : 0)) * 100) / 100.00;
+                    break;
                 case "Gridz Alternate Horizontal":
+                    width = parseInt(((dimensions[structure]["baseColumnWidth"] * (currentSize / 6)) * (structureInfo.column * 4) + ((structureInfo.columnGap) ? (15.24 * (structureInfo.column * 4)) : 0)) * 100) / 100.00;
+                    height = parseInt(((dimensions[structure]["baseRowHeight"] * (currentSize / 6)) * structureInfo.row * 4 + ((structureInfo.rowGap) ? (15.24 * structureInfo.row) : 0)) * 100) / 100.00;
+                    break;
                 case "Gridz Alternate Vertical":
                     width = parseInt(((dimensions[structure]["baseColumnWidth"] * (currentSize / 6)) * (structureInfo.column * 4) + ((structureInfo.columnGap) ? (15.24 * (structureInfo.column * 4)) : 0)) * 100) / 100.00;
                     height = parseInt(((dimensions[structure]["baseRowHeight"] * (currentSize / 6)) * structureInfo.row + ((structureInfo.rowGap) ? (15.24 * structureInfo.row) : 0)) * 100) / 100.00;
@@ -877,7 +861,7 @@ const changeDimension = (structure, size) => {
                     height = parseInt((dimensions[structure]["baseRowHeight"] * structureInfo.row + ((structureInfo.rowGap) ? (54.865 * structureInfo.row) : 0)) * 100) / 100.00;
                     break;
                 case "Arch":
-                    let multiply1 = 12.7203;
+                    let multiply1 = 1.27203;
                     width = parseInt(((dimensions[structure]["baseColumnWidth"] + ((currentSize - 4) * multiply1)) * structureInfo.row + ((structureInfo.rowGap) ? 11.43 * structureInfo.row : 0)) * 100) / 100;
                     height = width / 2;
                     break;
@@ -1166,4 +1150,149 @@ document.querySelector(".refresh-balloons-sfondo").addEventListener("click", fun
 
     document.getElementById("zoomShift").value = "50";
     document.getElementById("zoomShift").nextElementSibling.innerHTML = shiftValues["zoom"] + "&percnt;";
+});
+
+document.getElementById("width").addEventListener("change", function () {
+    document.getElementById("impostaDimensioni").style.display = "block";
+});
+
+document.getElementById("height").addEventListener("change", function () {
+    document.getElementById("impostaDimensioni").style.display = "block";
+});
+
+document.getElementById("impostaDimensioni").addEventListener("click", function () {
+    const oldRowCount = structureInfo.row;
+    const oldColumnCount = structureInfo.column;
+    if (structureInfo.structureType == 'Column') {
+        let newHeight = parseFloat(document.getElementById("height").value);
+        let height = parseFloat(structureInfo.height);
+        const heightPerRow = height / structureInfo.row;
+
+        const newNumberOfRows = Math.round(newHeight / heightPerRow);
+        structureInfo.row = newNumberOfRows;
+    } else if (structureInfo.structureType == 'Arch') {
+        let newWidth = parseFloat(document.getElementById("width").value);
+        let width = parseFloat(structureInfo.width);
+        const widthPerRow = width / structureInfo.row;
+
+        const newNumberOfRows = Math.round(newWidth / widthPerRow);
+        structureInfo.row = newNumberOfRows;
+    } else {
+        let newWidth = parseFloat(document.getElementById("width").value);
+        let width = parseFloat(structureInfo.width);
+        const widthPerColumn = width / structureInfo.column;
+
+        const newNumberOfCloumns = Math.round(newWidth / widthPerColumn);
+        structureInfo.column = newNumberOfCloumns;
+
+        let newHeight = parseFloat(document.getElementById("height").value);
+        let height = parseFloat(structureInfo.height);
+        const heightPerRow = height / structureInfo.row;
+
+        const newNumberOfRows = Math.round(newHeight / heightPerRow);
+        structureInfo.row = newNumberOfRows;
+    }
+
+    this.style.display = "none";
+
+    changeDimension(structureInfo.structureType, structureInfo.balloonSize);
+    createDeisgn(structure = structureInfo.structureType, row = structureInfo.row, column = structureInfo.column);
+
+});
+
+// delete one row from the structure
+document.getElementById("deleteRowBtn").addEventListener("click", function () {
+    structureInfo.updating = true;
+    let balloons = document.querySelectorAll(".balloon");
+    if (!confirmDeleteRow) {
+        this.value = "Conferma";
+        addMultiple = false;
+        startX = -1;
+        startY = -1;
+        endX = -1;
+        endY = -1;
+        activateDragColoring = false;
+        document.getElementById("activateDragColoring").value = "Attiva colorazione ad area";
+        document.getElementById("activateDragColoring").setAttribute("data-state", "disabled");
+        document.querySelector('.hint').style.display = 'none';
+        addBalloon = false;
+        removeBalloon = false;
+        rowDelete = true;
+        disableBtns(this.getAttribute("id"));
+        for (let i = 0; i < balloons.length; i++) {
+            balloons[i].setAttributeNS(null, "fill-opacity", "0.3");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "0.3");
+        }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "none";
+            }
+        }
+        confirmDeleteRow = true;
+    } else {
+        this.value = "Elimina riga";
+        setBtns(structureInfo.structureType);
+        rowDelete = false;
+        for (let i = 0; i < balloons.length; i++) {
+            balloons[i].setAttributeNS(null, "fill-opacity", "1");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "1");
+        }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "auto";
+            }
+        }
+        confirmDeleteRow = false;
+    }
+});
+
+
+// delete one column from the structure
+document.getElementById("deleteColonnaBtn").addEventListener("click", function () {
+    structureInfo.updating = true;
+    let balloons = document.querySelectorAll(".balloon");
+    if (!confirmDeleteColumn) {
+        this.value = "Conferma";
+        addMultiple = false;
+        startX = -1;
+        startY = -1;
+        endX = -1;
+        endY = -1;
+        activateDragColoring = false;
+        document.getElementById("activateDragColoring").value = "Attiva colorazione ad area";
+        document.getElementById("activateDragColoring").setAttribute("data-state", "disabled");
+        document.querySelector('.hint').style.display = 'none';
+        addBalloon = false;
+        removeBalloon = false;
+        columnDelete = true;
+        disableBtns(this.getAttribute("id"));
+        for (let i = 0; i < balloons.length; i++) {
+            balloons[i].setAttributeNS(null, "fill-opacity", "0.3");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "0.3");
+        }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "none";
+            }
+        }
+        confirmDeleteColumn = true;
+    } else {
+        this.value = "Elimina Colonna";
+        setBtns(structureInfo.structureType);
+        columnDelete = false;
+        for (let i = 0; i < balloons.length; i++) {
+            balloons[i].setAttributeNS(null, "fill-opacity", "1");
+            balloons[i].setAttributeNS(null, "stroke-opacity", "1");
+        }
+        let selectedBalloons = document.querySelectorAll(".selected-balloon");
+        for (let i = 0; i < selectedBalloons.length; i++) {
+            if (selectedBalloons[i].getAttributeNS(null, "id").indexOf("overlay") > -1) {
+                document.getElementById(selectedBalloons[i].getAttributeNS(null, "id")).style.pointerEvents = "auto";
+            }
+        }
+        confirmDeleteColumn = false;
+    }
 });
