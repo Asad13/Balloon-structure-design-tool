@@ -1,4 +1,4 @@
-// This file will contain all the functions to create designs of balloon
+// This file will contain all the utility functions and variables to create designs of balloon
 /*
 An object containing arrays for size options for different structures
 */
@@ -15,6 +15,7 @@ const sizes = {
     "Arch": ['4"', '5"', '6"', '7"', '8"', '9"', '10"', '11"', '12"']
 }
 
+// Contains width of each column and height of each row for standard size(initial) of balloons for all structures
 const dimensions = {
     "Duplet Square Pack": {
         "baseColumnWidth": 13.1955,
@@ -53,132 +54,137 @@ const dimensions = {
         "baseRowHeight": 15.90625
     },
     "Arch": {
-        "baseColumnWidth": 51.79607205,
+        "baseColumnWidth": 5.179607205,
         "baseRowHeight": null
     }
 }
 
+// Contains information about types of balloons and amount to multiply per each balloon of different types for different structures
 const balloonsInfo = {
     "Duplet Square Pack": {
         "Tondo": {
             typeName: "Tondo",
-            amount: 800
+            amount: 4
         }
     },
     "Alternate Size Pack": {
         "Tondo1": {
             typeName: "Tondo",
-            amount: 160
+            amount: 2
         },
         "Tondo2": {
             typeName: "Tondo",
-            amount: 160
+            amount: 2
         }
     },
     "Gridz": {
         "Squareloon": {
             typeName: "Squareloon",
-            amount: 280
+            amount: 4
         },
         "Tondo": {
             typeName: "Tondo",
-            amount: 560
+            amount: 8
         }
     },
     "Gridz Alternate Horizontal": {
         "Squareloon": {
             typeName: "Squareloon",
-            amount: 240
+            amount: 16
         },
         "Tondo": {
             typeName: "Tondo",
-            amount: 480
+            amount: 32
         }
     },
     "Gridz Alternate Vertical": {
         "Squareloon": {
             typeName: "Squareloon",
-            amount: 320
+            amount: 4
         },
         "Tondo": {
             typeName: "Tondo",
-            amount: 640
+            amount: 8
         }
     },
     '6" Grid': {
         "Tondo1": {
             typeName: "Tondo",
-            amount: 204
+            amount: 2
         },
         "Quicklink": {
             typeName: "Quicklink",
-            amount: 204
+            amount: 2
         },
         "Tondo2": {
             typeName: "Tondo",
-            amount: 204
+            amount: 2
         }
     },
     '12" Grid': {
         "Tondo1": {
             typeName: "Tondo",
-            amount: 150
+            amount: 2
         },
         "Quicklink": {
             typeName: "Quicklink",
-            amount: 150
+            amount: 2
         },
         "Tondo2": {
             typeName: "Tondo",
-            amount: 150
+            amount: 2
         }
     },
     '12" X-Pattern': {
         "Quicklink": {
             typeName: "Quicklink",
-            amount: 208
+            amount: 4
         },
         "Tondo1": {
             typeName: "Tondo",
-            amount: 208
+            amount: 4
         },
         "Tondo2": {
             typeName: "Tondo",
-            amount: 208
+            amount: 4
         }
     },
     "Column": {
         "Tondo": {
             typeName: "Tondo",
-            amount: 56
+            amount: 7
         }
     },
     "Arch": {
         "Tondo": {
             typeName: "Tondo",
-            amount: 180
+            amount: 6
         }
     }
 }
 
 
-// Contains the number of rows and columns of the structure 
+// Contains the information about the current structure
 const structureInfo = {
     "structureType": "Duplet Square Pack",
     "balloonSize": '5"',
     "row": 10,
     "column": 20,
+    "verticalDis": 0,
+    "horizontalDis": 0,
     "rowGap": false,
     "columnGap": false,
     "updating": false,
     "width": "439.91",
     "height": "134.38",
-    "structure": null
+    "structure": null,
 };
-// containing infos of the selected buttons
+
+// containing infos of the selected balloons
 let selectedBalloons = {};
 
 /**
+ * add information of newly added row to the selectedBalloons object
  * @function
  * @name updateAddRowInformation
  */
@@ -229,13 +235,20 @@ const updateAddRowInformation = () => {
             break;
         case "Gridz":
         case "Gridz Alternate Vertical":
-        case "Gridz Alternate Horizontal":
             let amountG1 = 0, amountG2 = 0;
             for (let i = 0; i < (structureInfo.column * 4); i++) {
                 amountG1 += 1;
                 amountG2 += 2;
             }
             changes.push(amountG1, amountG2);
+            break;
+        case "Gridz Alternate Horizontal":
+            let amountGH1 = 0, amountGH2 = 0;
+            for (let i = 0; i < (structureInfo.column * 4); i++) {
+                amountGH1 += 4;
+                amountGH2 += 8;
+            }
+            changes.push(amountGH1, amountGH2);
             break;
         default:
             changes.push(structureInfo.column * 4);
@@ -251,6 +264,7 @@ const updateAddRowInformation = () => {
 }
 
 /**
+ * add information of newly added column to the selectedBalloons object
  * @function
  * @name updateAddColumnInformation
  */
@@ -301,14 +315,21 @@ const updateAddColumnInformation = () => {
             break;
             break;
         case "Gridz":
-        case "Gridz Alternate Vertical":
-        case "Gridz Alternate Horizontal":
             let amountG1 = 0, amountG2 = 0;
             for (let i = 0; i < structureInfo.row; i++) {
                 amountG1 += 1;
                 amountG2 += 2;
             }
             changes.push(amountG1, amountG2);
+            break;
+        case "Gridz Alternate Horizontal":
+        case "Gridz Alternate Vertical":
+            let amountGV1 = 0, amountGV2 = 0;
+            for (let i = 0; i < structureInfo.row; i++) {
+                amountGV1 += 4;
+                amountGV2 += 8;
+            }
+            changes.push(amountGV1, amountGV2);
             break;
         default:
             changes.push(structureInfo.row * 4);
@@ -324,18 +345,22 @@ const updateAddColumnInformation = () => {
 }
 
 /**
+ * change information for newly removed row from the selectedBalloons object
  * @function
  * @name updateRemoveRowInformation
  */
 const updateRemoveRowInformation = (row) => {
     Object.entries(selectedBalloons).forEach(([key1, value1]) => {
         Object.entries(value1).forEach(([key, value]) => {
+            //let removedIndex = [];
             for (let i = 0; i < value.selectedBalloonsIds.length; i++) {
                 const id = value.selectedBalloonsIds[i].id;
-                let currentRow = id.substring(0, row.length);
-                if (currentRow == row) {
+                // let currentRow = id.substring(0, row.length);
+                let currentRow = value.selectedBalloonsIds[i].row;
+                if (parseInt(currentRow) == parseInt(row)) {
                     value.count -= value.selectedBalloonsIds[i].amount;
-                    value.selectedBalloonsIds.splice(i, 1);
+                    //value.selectedBalloonsIds.splice(i, 1);
+                    //removedIndex.push(i);
 
                     const infoTable = document.getElementById(key1);
                     const rowClass = (key == "transparent") ? "transparent" : `color-${key.substring(1, key.length)}`;
@@ -344,28 +369,37 @@ const updateRemoveRowInformation = (row) => {
                     } else {
                         infoTable.removeChild(infoTable.querySelector(`.${rowClass}`));
                     }
-                } else if (parseInt(currentRow) > parseInt(row)) {
-                    value.selectedBalloonsIds[i].id = `${parseInt(currentRow) - 1}` + value.selectedBalloonsIds[i].id.substring(row.length, value.selectedBalloonsIds[i].id.length);
                 }
+                // else if (parseInt(currentRow) > parseInt(row)) {
+                //     const newRow = `${parseInt(currentRow) - 1}`;
+                //     value.selectedBalloonsIds[i].id = `${newRow}` + `${value.selectedBalloonsIds[i].column}` + id.charAt(id.length - 1);
+                //     value.selectedBalloonsIds[i].row = `${newRow}`;
+                // }
+            }
+            if (key == "transparent") {
+                value.selectedBalloonsIds = [];
             }
         });
     });
 }
 
 /**
+ * change information for newly removed column from the selectedBalloons object
  * @function
  * @name updateRemoveColumnInformation
  */
 const updateRemoveColumnInformation = (column) => {
     Object.entries(selectedBalloons).forEach(([key1, value1]) => {
         Object.entries(value1).forEach(([key, value]) => {
+            //let removedIndex = [];
             for (let i = 0; i < value.selectedBalloonsIds.length; i++) {
                 const id = value.selectedBalloonsIds[i].id;
-                const columnValueStart = id.length - 1 - column.length;
-                let currentColumn = id.substr(columnValueStart, column.length);
-                if (currentColumn == column) {
+
+                let currentColumn = value.selectedBalloonsIds[i].column;
+                if (parseInt(currentColumn) == parseInt(column)) {
                     value.count -= value.selectedBalloonsIds[i].amount;
-                    value.selectedBalloonsIds.splice(i, 1);
+                    //value.selectedBalloonsIds.splice(i, 1);
+                    //removedIndex.push(i);
 
                     const infoTable = document.getElementById(key1);
                     const rowClass = (key == "transparent") ? "transparent" : `color-${key.substring(1, key.length)}`;
@@ -374,15 +408,21 @@ const updateRemoveColumnInformation = (column) => {
                     } else {
                         infoTable.removeChild(infoTable.querySelector(`.${rowClass}`));
                     }
-                } else if (parseInt(currentColumn) > parseInt(column)) {
-                    value.selectedBalloonsIds[i].id = id.substring(0, columnValueStart) + `${parseInt(currentColumn) - 1}` + id.charAt(id.length - 1);
                 }
+                // else if (parseInt(currentColumn) > parseInt(column)) {
+                //     const newColumn = `${parseInt(currentColumn) - 1}`;
+                //     value.selectedBalloonsIds[i].id = `${value.selectedBalloonsIds[i].row}` + `${newColumn}` + id.charAt(id.length - 1);
+                //     value.selectedBalloonsIds[i].column = `${newColumn}`;
+                // }
+            }
+            if (key == "transparent") {
+                value.selectedBalloonsIds = [];
             }
         });
     });
 }
 
-
+// Create rows of table in information section
 const createTableRow = (color, amount) => {
     const infoTableRow = document.createElement("tr");
     const colorClass = (color == "transparent") ? "transparent" : `color-${color.substring(1, color.length)}`;
@@ -413,6 +453,7 @@ const createTableRow = (color, amount) => {
 //     for (let i)
 // }
 
+// Creates balloon information table and inserts it in the information section
 const setInformationTable = structure => {
     const infoTableContainer = document.querySelector(".information-box"); // Information table elements container
     while (infoTableContainer.firstElementChild) {
@@ -466,9 +507,17 @@ const setInformationTable = structure => {
         headerElement.innerHTML = value.typeName + " da " + sizes[i];
         i++;
 
+        let amount = 0;
+        if (structure == "Column") {
+            amount = value.amount * structureInfo.row;
+        } else if (structure == "Arch") {
+            amount = value.amount * (structureInfo.row - 1) + 4;
+        } else {
+            amount = value.amount * structureInfo.row * structureInfo.column;
+        }
         selectedBalloons[key] = {
             "transparent": {
-                count: value.amount,
+                count: amount,
                 selectedBalloonsIds: []
             }
         };
@@ -476,7 +525,7 @@ const setInformationTable = structure => {
         const infoTable = document.createElement("table");
         infoTable.classList.add("balloon-info-table");
         infoTable.setAttribute("id", key);
-        const infoTableRow = createTableRow("transparent", value.amount);
+        const infoTableRow = createTableRow("transparent", amount);
         infoTable.appendChild(infoTableRow);
         infoTableContainer.appendChild(headerElement);
         infoTableContainer.appendChild(infoTable);
@@ -484,11 +533,19 @@ const setInformationTable = structure => {
 }
 
 /**
+ * adds the information of the selected balloon to the selectedBalloons object
  * @function
  * @name updateSelectedBalloon
  * @param {string} id id of the selected balloon
+ * @param {string} type type of the selected balloon
+ * @param {number} amount amount to multiply for each of the selected balloon
+ * @param {number} row row of the selected balloon
+ * @param {number} column column of the selected balloon
  */
-const updateSelectedBalloon = (id, type, amount) => {
+const updateSelectedBalloon = (id, type, amount, row, column) => {
+    if (id.indexOf("overlay") > -1) {
+        id = id.substring(0, id.indexOf("overlay"));
+    }
     if (selectedBalloons[type]) {
         const color = document.getElementById('colorPicker').value;
         const infoTable = document.getElementById(type);
@@ -496,7 +553,9 @@ const updateSelectedBalloon = (id, type, amount) => {
             selectedBalloons[type][color].count += parseInt(amount);
             selectedBalloons[type][color].selectedBalloonsIds.push({
                 "id": id,
-                "amount": parseInt(amount)
+                "amount": parseInt(amount),
+                "row": row,
+                "column": column,
             });
             infoTable.querySelector(`.color-${color.substring(1, color.length)}`).querySelector(".balloon-amount").innerHTML = selectedBalloons[type][color].count;
         } else {
@@ -506,7 +565,9 @@ const updateSelectedBalloon = (id, type, amount) => {
             };
             selectedBalloons[type][color]["selectedBalloonsIds"].push({
                 "id": id,
-                "amount": parseInt(amount)
+                "amount": parseInt(amount),
+                "row": row,
+                "column": column,
             });
             const infoTableRow = createTableRow(color, selectedBalloons[type][color].count);
             infoTable.appendChild(infoTableRow);
@@ -524,12 +585,20 @@ const updateSelectedBalloon = (id, type, amount) => {
 
 
 /**
+ * removes the information of the unselected balloon to the selectedBalloons object
  * @function
  * @name removeFromSelectedBalloon
  * @param {string} key key of the selectedBalloons from which the balloon will be removed
  * @param {string} id id of the selected balloon to be unselected
+ * @param {string} type type of the selected balloon
+ * @param {number} amount amount to multiply for each of the selected balloon
+ * @param {number} row row of the selected balloon
+ * @param {number} column column of the selected balloon
  */
-const removeFromSelectedBalloon = (key, id, type, amount) => {
+const removeFromSelectedBalloon = (key, id, type, amount, row, column) => {
+    if (id.indexOf("overlay") > -1) {
+        id = id.substring(0, id.indexOf("overlay"));
+    }
     if (selectedBalloons[type][key]) {
         for (let i = 0; i < selectedBalloons[type][key].selectedBalloonsIds.length; i++) {
             if (selectedBalloons[type][key].selectedBalloonsIds[i].id == id) {
@@ -546,7 +615,9 @@ const removeFromSelectedBalloon = (key, id, type, amount) => {
                 selectedBalloons[type]["transparent"].count += parseInt(amount);
                 selectedBalloons[type]["transparent"]["selectedBalloonsIds"].push({
                     "id": id,
-                    "amount": amount
+                    "amount": amount,
+                    "row": row,
+                    "column": column,
                 });
                 infoTable.querySelector(".transparent").querySelector(".balloon-amount").innerHTML = selectedBalloons[type]["transparent"].count;
                 break;
@@ -562,6 +633,7 @@ const removeFromSelectedBalloon = (key, id, type, amount) => {
  * @param {number} row - The number of rows in the structure
  * @param {boolean} needsUse - If the structure needs the "use" svg element
  * @param {number} unitheight - height of each row of the container svg tag
+ * @param {number} rgap - row gap value in pixel
  * @returns {Object} Object containing all the initial values for the structure
  */
 function initialSetup(row = 1, unitheight = 70, needsUse = false, rGap = 0) {
@@ -572,9 +644,9 @@ function initialSetup(row = 1, unitheight = 70, needsUse = false, rGap = 0) {
 
     if (unitheight != 0) {
         let height = (unitheight + rGap) * row;
-        container.style.height = height + "px";
-        container.style.minHeight = height + "px";
-        document.querySelector(".structure-design-section").style.minHeight = height + "px";
+        container.style.height = (height + 100) + "px";
+        container.style.minHeight = (height + 100) + "px";
+        document.querySelector(".structure-design-section").style.minHeight = (height + 100) + "px";
     } else {
         container.style.height = `${(width / 2) + 100}px`;
         container.style.minHeight = `${(width / 2) + 100}px`;
@@ -643,7 +715,7 @@ function createBalloonElement(balloonType) {
 }
 
 /**
- * create and return a SVG ellipse balloonTop for selected balloons
+ * create and return overlay balloon
  * @function
  * @name createOverlayBalloon
  * @param {Element} element - The selected balloon(SVG element)
@@ -730,19 +802,26 @@ function createBalloonTop(element) {
 
 
 /**
+ * create overlay balloons when updating the structure
  * @function
  * @name createOverlayBalloons
  * @param {SVGElement} container SVG container element
  */
 const createOverlayBalloons = (container) => {
-    Object.entries(selectedBalloons).forEach(([key, value1]) => {
+    Object.entries(selectedBalloons).forEach(([key1, value1]) => {
         Object.entries(value1).forEach(([key, value]) => {
             if (key != "transparent") {
                 const ids = value.selectedBalloonsIds;
                 for (let i = 0; i < ids.length; i++) {
+                    let tids = selectedBalloons[key1]["transparent"].selectedBalloonsIds;
+                    for (let j = 0; j < tids.length; j++) {
+                        if (tids[j].id == ids[i].id) {
+                            selectedBalloons[key1]["transparent"].selectedBalloonsIds.splice(j, 1);
+                        }
+                    }
                     const balloon = document.getElementById(ids[i].id);
                     let overlayballoon = createOverlayBalloon(key, balloon);// creating the ballon object (svg circle)
-                    overlayballoon.setAttributeNS(null, "id", `${ids[i]}overlay`)
+                    overlayballoon.setAttributeNS(null, "id", `${ids[i]}overlay`);
                     let balloonTop = createBalloonTop(balloon); // balloon top when selected
                     balloonTop.setAttributeNS(null, "id", `${ids[i]}balloonTop`)
 
