@@ -24,11 +24,11 @@ const deleteRow = balloon => {
             if (balloons[i].getAttribute("data-row") == currentRow) {
                 if (balloons[i].classList.contains("selected-balloon")) {
                     if ((balloons[i].getAttributeNS(null, "id").indexOf("overlay") < 0)) {
-                        removeFromSelectedBalloon(document.getElementById(`${balloons[i].getAttribute("id")}overlay`).getAttributeNS(null, "fill"), balloons[i].getAttribute("id"), balloons[i].getAttribute("data-balloonShape"), balloons[i].getAttribute("data-amount"), balloons[i].getAttribute("data-row"), balloons[i].getAttribute("data-column"));
+                        removeFromSelectedBalloon(document.getElementById(`${balloons[i].getAttribute("id")}overlay`).getAttributeNS(null, "fill"), balloons[i].getAttribute("id"), balloons[i].getAttribute("data-balloonshape"), balloons[i].getAttribute("data-amount"), balloons[i].getAttribute("data-row"), balloons[i].getAttribute("data-column"));
 
-                        const infoTable = document.getElementById(balloons[i].getAttribute("data-balloonShape"));
+                        const infoTable = document.getElementById(balloons[i].getAttribute("data-balloonshape"));
                         let count = parseInt(infoTable.querySelector(`.transparent`).querySelector(".balloon-amount").innerHTML) + parseInt(balloons[i].getAttribute("data-amount"));
-                        selectedBalloons[balloons[i].getAttribute("data-balloonShape")]["transparent"].count = count;
+                        selectedBalloons[balloons[i].getAttribute("data-balloonshape")]["transparent"].count = count;
                         infoTable.querySelector(`.transparent`).querySelector(".balloon-amount").innerHTML = count;
 
                         let overlayContainer = document.getElementById("allOverlays");
@@ -74,11 +74,11 @@ const deleteColumn = balloon => {
             if (balloons[i].getAttribute("data-column") == currentColumn) {
                 if (balloons[i].classList.contains("selected-balloon")) {
                     if ((balloons[i].getAttributeNS(null, "id").indexOf("overlay") < 0)) {
-                        removeFromSelectedBalloon(document.getElementById(`${balloons[i].getAttribute("id")}overlay`).getAttributeNS(null, "fill"), balloons[i].getAttribute("id"), balloons[i].getAttribute("data-balloonShape"), balloons[i].getAttribute("data-amount"), balloons[i].getAttribute("data-row"), balloons[i].getAttribute("data-column"));
+                        removeFromSelectedBalloon(document.getElementById(`${balloons[i].getAttribute("id")}overlay`).getAttributeNS(null, "fill"), balloons[i].getAttribute("id"), balloons[i].getAttribute("data-balloonshape"), balloons[i].getAttribute("data-amount"), balloons[i].getAttribute("data-row"), balloons[i].getAttribute("data-column"));
 
-                        const infoTable = document.getElementById(balloons[i].getAttribute("data-balloonShape"));
+                        const infoTable = document.getElementById(balloons[i].getAttribute("data-balloonshape"));
                         let count = parseInt(infoTable.querySelector(`.transparent`).querySelector(".balloon-amount").innerHTML) + parseInt(balloons[i].getAttribute("data-amount"));
-                        selectedBalloons[balloons[i].getAttribute("data-balloonShape")]["transparent"].count = count;
+                        selectedBalloons[balloons[i].getAttribute("data-balloonshape")]["transparent"].count = count;
                         infoTable.querySelector(`.transparent`).querySelector(".balloon-amount").innerHTML = count;
 
                         let overlayContainer = document.getElementById("allOverlays");
@@ -125,10 +125,12 @@ const handleBalloons = (container, balloon) => {
     const useContainerTop = document.getElementById("useTop");
 
     const balloonId = balloon.getAttribute("id");
-    const shape = balloon.getAttribute("data-balloonShape");
+    const shape = balloon.getAttribute("data-balloonshape");
     const amount = balloon.getAttribute("data-amount");
     // Updating the selected balloon list
-    updateSelectedBalloon(balloonId, shape, amount, balloon.getAttribute("data-row"), balloon.getAttribute("data-column"));
+    color = document.getElementById('colorPicker').value;
+    balloon.setAttribute("data-color", color);
+    updateSelectedBalloon(balloonId, shape, amount, balloon.getAttribute("data-row"), balloon.getAttribute("data-column"), color);// new
 
     let overlayballoon = createOverlayBalloon(null, element = balloon);// creating the ballon object (svg circle)
     overlayballoon.setAttributeNS(null, "id", `${balloonId}overlay`);
@@ -167,7 +169,7 @@ const handleBalloons = (container, balloon) => {
             useContainer.removeChild(use);
             useContainer.removeChild(use1);
         }
-        removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonShape"), balloon.getAttribute("data-amount"), balloon.getAttribute("data-row"), balloon.getAttribute("data-column"));
+        removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonshape"), balloon.getAttribute("data-amount"), balloon.getAttribute("data-row"), balloon.getAttribute("data-column"));
         this.parentElement.removeChild(this.nextElementSibling);
         this.parentElement.removeChild(this);
     });
@@ -182,7 +184,7 @@ const handleBalloons = (container, balloon) => {
                 useContainer.removeChild(use);
                 useContainer.removeChild(use1);
             }
-            removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonShape"), balloon.getAttribute("data-amount"), balloon.getAttribute("data-row"), balloon.getAttribute("data-column"));
+            removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonshape"), balloon.getAttribute("data-amount"), balloon.getAttribute("data-row"), balloon.getAttribute("data-column"));
             this.parentElement.removeChild(this.nextElementSibling);
             this.parentElement.removeChild(this);
         }
@@ -198,7 +200,7 @@ const handleBalloons = (container, balloon) => {
                 useContainer.removeChild(use);
                 useContainer.removeChild(use1);
             }
-            removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonShape"), balloon.getAttribute("data-amount"), balloon.getAttribute("data-row"), balloon.getAttribute("data-column"));
+            removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonshape"), balloon.getAttribute("data-amount"), balloon.getAttribute("data-row"), balloon.getAttribute("data-column"));
             this.parentElement.removeChild(this.nextElementSibling);
             this.parentElement.removeChild(this);
         }
@@ -277,7 +279,7 @@ const updateSelection = (willColor) => {
                             removedBaloons.push({
                                 key: overlayballoon.getAttributeNS(null, "fill"),
                                 id: balloonId,
-                                type: balloon.getAttribute("data-balloonShape"),
+                                type: balloon.getAttribute("data-balloonshape"),
                                 amount: balloon.getAttribute("data-amount"),
                                 row: balloon.getAttribute("data-row"),
                                 column: balloon.getAttribute("data-column"),
@@ -357,6 +359,23 @@ document.querySelector(".balloon-structure").addEventListener("mousemove", funct
 
 
 document.querySelector(".balloon-structure").addEventListener("mouseup", function (event) {
+    addBalloon = false;
+    removeBalloon = false;
+    if (this.contains(boundingBox)) {
+        this.removeChild(boundingBox);
+    }
+    if (addMultiple) {
+        updateSelection(color);
+        addMultiple = false;
+        startX = -1;
+        startY = -1;
+        endX = -1;
+        endY = -1;
+    }
+});
+
+
+document.querySelector(".balloon-structure").addEventListener("mouseleave", function (event) {
     addBalloon = false;
     removeBalloon = false;
     if (this.contains(boundingBox)) {
@@ -542,7 +561,7 @@ const createDupletSquare = (row = 10, column = 20) => {
                 "cx": `${cx}`,
                 "cy": `${cy}`,
             });
-            balloon1.setAttribute("data-balloonShape", "Tondo");
+            balloon1.setAttribute("data-balloonshape", "Tondo");
             balloon1.setAttribute("data-amount", "2");
             balloon1.setAttribute("data-row", `${i}`);
             balloon1.setAttribute("data-column", `${j}`);
@@ -562,7 +581,7 @@ const createDupletSquare = (row = 10, column = 20) => {
                 "cx": `${cx + horizontalDis}`,
                 "cy": `${cy + radius}`,
             });
-            balloon2.setAttribute("data-balloonShape", "Tondo");
+            balloon2.setAttribute("data-balloonshape", "Tondo");
             selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
                 "id": `${i}${j}2`,
                 "amount": 2,
@@ -605,8 +624,14 @@ function createAlternateSquarePack(row = 8, column = 10) {
 
     let [ratioBigger, ratioSmaller] = document.getElementById("size").value.split("/"); // Getting the sizes for the balloon
 
-    ratioBigger = parseInt(ratioBigger.trim().substring(0, ratioBigger.trim().indexOf(`"`))); // need to be fixed
-    ratioSmaller = parseInt(ratioSmaller.trim().substring(0, ratioSmaller.trim().indexOf(`"`)));// need to be fixed
+    if (ratioBigger && ratioSmaller) {
+        ratioBigger = parseInt(ratioBigger.trim().substring(0, ratioBigger.trim().indexOf(`"`))); // need to be fixed
+        ratioSmaller = parseInt(ratioSmaller.trim().substring(0, ratioSmaller.trim().indexOf(`"`)));// need to be fixed
+    } else {
+        ratioBigger = 6; // need to be fixed
+        ratioSmaller = 4.5;// need to be fixed
+    }
+
     let multiplyBigger = 1.16;
     switch (ratioBigger) {
         case 6:
@@ -657,7 +682,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon.setAttribute("id", `${i}${j}1`);
                     balloon.classList.add("overlay", "balloon");
-                    balloon.setAttribute("data-balloonShape", "Tondo1");
+                    balloon.setAttribute("data-balloonshape", "Tondo1");
                     balloon.setAttribute("data-amount", "2");
                     balloon.setAttribute("data-row", `${i}`);
                     balloon.setAttribute("data-column", `${j}`);
@@ -679,7 +704,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon1.classList.add("overlay", "balloon");
                     balloon1.setAttribute("id", `${i}${j}2`);
-                    balloon1.setAttribute("data-balloonShape", "Tondo1");
+                    balloon1.setAttribute("data-balloonshape", "Tondo1");
                     balloon1.setAttribute("data-amount", "2");
                     balloon1.setAttribute("data-row", `${i}`);
                     balloon1.setAttribute("data-column", `${j}`);
@@ -699,7 +724,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon.classList.add("balloon");
                     balloon.setAttribute("id", `${i}${j}1`);
-                    balloon.setAttribute("data-balloonShape", "Tondo2");
+                    balloon.setAttribute("data-balloonshape", "Tondo2");
                     balloon.setAttribute("data-amount", "1");
                     balloon.setAttribute("data-row", `${i}`);
                     balloon.setAttribute("data-column", `${j}`);
@@ -721,7 +746,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon1.classList.add("overlay", "balloon");
                     balloon1.setAttribute("id", `${i}${j}2`);
-                    balloon1.setAttribute("data-balloonShape", "Tondo2");
+                    balloon1.setAttribute("data-balloonshape", "Tondo2");
                     balloon1.setAttribute("data-amount", "2");
                     balloon1.setAttribute("data-row", `${i}`);
                     balloon1.setAttribute("data-column", `${j}`);
@@ -743,7 +768,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon2.classList.add("balloon");
                     balloon2.setAttribute("id", `${i}${j}3`);
-                    balloon2.setAttribute("data-balloonShape", "Tondo2");
+                    balloon2.setAttribute("data-balloonshape", "Tondo2");
                     balloon2.setAttribute("data-amount", "1");
                     balloon2.setAttribute("data-row", `${i}`);
                     balloon2.setAttribute("data-column", `${j}`);
@@ -766,7 +791,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon.classList.add("overlay", "balloon");
                     balloon.setAttribute("id", `${i}${j}1`);
-                    balloon.setAttribute("data-balloonShape", "Tondo1");
+                    balloon.setAttribute("data-balloonshape", "Tondo1");
                     balloon.setAttribute("data-amount", "2");
                     balloon.setAttribute("data-row", `${i}`);
                     balloon.setAttribute("data-column", `${j}`);
@@ -789,7 +814,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon1.classList.add("overlay", "balloon");
                     balloon1.setAttribute("id", `${i}${j}2`);
-                    balloon1.setAttribute("data-balloonShape", "Tondo1");
+                    balloon1.setAttribute("data-balloonshape", "Tondo1");
                     balloon1.setAttribute("data-amount", "2");
                     balloon1.setAttribute("data-row", `${i}`);
                     balloon1.setAttribute("data-column", `${j}`);
@@ -812,7 +837,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon.classList.add("balloon");
                     balloon.setAttribute("id", `${i}${j}1`);
-                    balloon.setAttribute("data-balloonShape", "Tondo2");
+                    balloon.setAttribute("data-balloonshape", "Tondo2");
                     balloon.setAttribute("data-amount", "1");
                     balloon.setAttribute("data-row", `${i}`);
                     balloon.setAttribute("data-column", `${j}`);
@@ -834,7 +859,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon1.classList.add("overlay", "balloon");
                     balloon1.setAttribute("id", `${i}${j}2`);
-                    balloon1.setAttribute("data-balloonShape", "Tondo2");
+                    balloon1.setAttribute("data-balloonshape", "Tondo2");
                     balloon1.setAttribute("data-amount", "2");
                     balloon1.setAttribute("data-row", `${i}`);
                     balloon1.setAttribute("data-column", `${j}`);
@@ -856,7 +881,7 @@ function createAlternateSquarePack(row = 8, column = 10) {
                     });
                     balloon2.classList.add("balloon");
                     balloon2.setAttribute("id", `${i}${j}3`);
-                    balloon2.setAttribute("data-balloonShape", "Tondo2");
+                    balloon2.setAttribute("data-balloonshape", "Tondo2");
                     balloon2.setAttribute("data-amount", "1");
                     balloon2.setAttribute("data-row", `${i}`);
                     balloon2.setAttribute("data-column", `${j}`);
@@ -983,7 +1008,7 @@ function createGridz(structure, row = 10, column = 7) {
                 "x": `${x}`,
                 "y": `${y}`
             });
-            balloon.setAttribute("data-balloonShape", "Squareloon");
+            balloon.setAttribute("data-balloonshape", "Squareloon");
             balloon.setAttribute("data-amount", "1");
             balloon.setAttribute("data-row", `${realRowCount}`);
             balloon.setAttribute("data-column", `${realColumnCount}`);
@@ -1003,7 +1028,7 @@ function createGridz(structure, row = 10, column = 7) {
                 "cx": `${x + balloonDimension}`,
                 "cy": `${y + balloonDimension}`
             });
-            centerBalloon.setAttribute("data-balloonShape", "Tondo");
+            centerBalloon.setAttribute("data-balloonshape", "Tondo");
             centerBalloon.setAttribute("data-amount", "2");
             centerBalloon.setAttribute("data-row", `${realRowCount}`);
             centerBalloon.setAttribute("data-column", `${realColumnCount}`);
@@ -1083,7 +1108,7 @@ function createSixInGrid(row = 6, column = 17) {
                 "cy": `${cy}`,
             });
             first.setAttribute("data-size", "small");
-            first.setAttribute("data-balloonShape", "Tondo1");
+            first.setAttribute("data-balloonshape", "Tondo1");
             first.setAttribute("data-amount", "2");
             first.setAttribute("data-row", `${i}`);
             first.setAttribute("data-column", `${j}`);
@@ -1103,7 +1128,7 @@ function createSixInGrid(row = 6, column = 17) {
                 "cx": `${cx + 3 * radiusSmall}`,
                 "cy": `${cy}`
             });
-            second.setAttribute("data-balloonShape", "Quicklink");
+            second.setAttribute("data-balloonshape", "Quicklink");
             second.setAttribute("data-amount", "1");
             second.setAttribute("data-row", `${i}`);
             second.setAttribute("data-column", `${j}`);
@@ -1130,7 +1155,7 @@ function createSixInGrid(row = 6, column = 17) {
                 "ry": `${2 * radiusSmall}`,
                 "rx": `${radiusSmall}`,
             });
-            second.setAttribute("data-balloonShape", "Quicklink");
+            second.setAttribute("data-balloonshape", "Quicklink");
             second.setAttribute("data-amount", "1");
             second.setAttribute("data-row", `${i}`);
             second.setAttribute("data-column", `${j}`);
@@ -1152,7 +1177,7 @@ function createSixInGrid(row = 6, column = 17) {
                 "r": `${2 * radiusSmall}`
             });
             first.setAttribute("data-size", "big");
-            first.setAttribute("data-balloonShape", "Tondo2");
+            first.setAttribute("data-balloonshape", "Tondo2");
             first.setAttribute("data-amount", "2");
             first.setAttribute("data-row", `${i}`);
             first.setAttribute("data-column", `${j}`);
@@ -1211,7 +1236,7 @@ function createColumn(row) {
             "cx": `${cx - 1.2 * radius}`,
             "cy": `${cy}`
         });
-        first.setAttribute("data-balloonShape", "Tondo");
+        first.setAttribute("data-balloonshape", "Tondo");
         first.setAttribute("data-amount", "1");
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
             "id": `${i}1`,
@@ -1230,7 +1255,7 @@ function createColumn(row) {
             "cy": `${cy}`
         });
         second.classList.add("top", "balloon");
-        second.setAttribute("data-balloonShape", "Tondo");
+        second.setAttribute("data-balloonshape", "Tondo");
         second.setAttribute("data-amount", "2");
         second.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1247,7 +1272,7 @@ function createColumn(row) {
             "cy": `${cy}`
         });
         third.classList.add("balloon");
-        third.setAttribute("data-balloonShape", "Tondo");
+        third.setAttribute("data-balloonshape", "Tondo");
         third.setAttribute("data-amount", "1");
         third.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1267,7 +1292,7 @@ function createColumn(row) {
             "cy": `${cy + verticalDis}`
         });
         fourth.classList.add("overlay", "balloon");
-        fourth.setAttribute("data-balloonShape", "Tondo");
+        fourth.setAttribute("data-balloonshape", "Tondo");
         fourth.setAttribute("data-amount", "2");
         fourth.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1285,7 +1310,7 @@ function createColumn(row) {
             "cy": `${cy + verticalDis}`
         });
         fifth.classList.add("overlay", "balloon");
-        fifth.setAttribute("data-balloonShape", "Tondo");
+        fifth.setAttribute("data-balloonshape", "Tondo");
         fifth.setAttribute("data-amount", "1");
         fifth.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1356,7 +1381,7 @@ function createTwelveInGrid(row = 5, column = 15) {
             });
             first.classList.add("overlay", "balloon");
             first.setAttribute("data-size", "small");
-            first.setAttribute("data-balloonShape", "Tondo1");
+            first.setAttribute("data-balloonshape", "Tondo1");
             first.setAttribute("data-amount", "2");
             first.setAttribute("data-row", `${i}`);
             first.setAttribute("data-column", `${j}`);
@@ -1376,7 +1401,7 @@ function createTwelveInGrid(row = 5, column = 15) {
                 "cx": `${cx + dis}`,
                 "cy": `${cy}`,
             });
-            second.setAttribute("data-balloonShape", "Quicklink");
+            second.setAttribute("data-balloonshape", "Quicklink");
             second.setAttribute("data-amount", "1");
             second.setAttribute("data-row", `${i}`);
             second.setAttribute("data-column", `${j}`);
@@ -1404,7 +1429,7 @@ function createTwelveInGrid(row = 5, column = 15) {
                 "rx": `${2.2 * balloonDimension}`,
                 "ry": `${3 * balloonDimension}`,
             });
-            second.setAttribute("data-balloonShape", "Quicklink");
+            second.setAttribute("data-balloonshape", "Quicklink");
             second.setAttribute("data-amount", "1");
             second.setAttribute("data-row", `${i}`);
             second.setAttribute("data-column", `${j}`);
@@ -1428,7 +1453,7 @@ function createTwelveInGrid(row = 5, column = 15) {
             });
             first.classList.add("overlay", "balloon");
             first.setAttribute("data-size", "big");
-            first.setAttribute("data-balloonShape", "Tondo2");
+            first.setAttribute("data-balloonshape", "Tondo2");
             first.setAttribute("data-amount", "2");
             first.setAttribute("data-row", `${i}`);
             first.setAttribute("data-column", `${j}`);
@@ -1510,7 +1535,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                 });//transforming balloon top ellipse
 
                 ellipse1.classList.add("plus45", "balloon"); // This balloon has been rotated 45 degree
-                ellipse1.setAttribute("data-balloonShape", "Quicklink");
+                ellipse1.setAttribute("data-balloonshape", "Quicklink");
                 ellipse1.setAttribute("data-amount", "1");
                 ellipse1.setAttribute("data-row", `${i}`);
                 ellipse1.setAttribute("data-column", `${j}`);
@@ -1535,7 +1560,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                     "transform": `rotate(-45,${ex},${ey})`
                 });//transforming balloon top ellipse
                 ellipse2.classList.add("minus45", "balloon"); // This balloon has been rotated -45 degree
-                ellipse2.setAttribute("data-balloonShape", "Quicklink");
+                ellipse2.setAttribute("data-balloonshape", "Quicklink");
                 ellipse2.setAttribute("data-amount", "1");
                 ellipse2.setAttribute("data-row", `${i}`);
                 ellipse2.setAttribute("data-column", `${j}`);
@@ -1561,7 +1586,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                     "transform": `rotate(-45,${ex},${ey})`
                 });//transforming balloon top ellipse
                 ellipse3.classList.add("minus45", "balloon"); // This balloon has been rotated -45 degree
-                ellipse3.setAttribute("data-balloonShape", "Quicklink");
+                ellipse3.setAttribute("data-balloonshape", "Quicklink");
                 ellipse3.setAttribute("data-amount", "1");
                 ellipse3.setAttribute("data-row", `${i}`);
                 ellipse3.setAttribute("data-column", `${j}`);
@@ -1586,7 +1611,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                     "transform": `rotate(45,${ex},${ey})`
                 });//transforming balloon top ellipse
                 ellipse4.classList.add("plus45", "balloon"); // This balloon has been rotated 45 degree
-                ellipse4.setAttribute("data-balloonShape", "Quicklink");
+                ellipse4.setAttribute("data-balloonshape", "Quicklink");
                 ellipse4.setAttribute("data-amount", "1");
                 ellipse4.setAttribute("data-row", `${i}`);
                 ellipse4.setAttribute("data-column", `${j}`);
@@ -1611,7 +1636,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                 smallCircleRadius = unitContainerDimension / 10;
                 circleCenter.classList.add("overlay", "balloon");
                 circleCenter.setAttribute("data-size", "small");
-                circleCenter.setAttribute("data-balloonShape", "Tondo1");
+                circleCenter.setAttribute("data-balloonshape", "Tondo1");
                 circleCenter.setAttribute("data-amount", "2");
                 circleCenter.setAttribute("data-row", `${i}`);
                 circleCenter.setAttribute("data-column", `${j}`);
@@ -1636,7 +1661,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                 });//setting center of the balloon (right circle)
                 circleRight.classList.add("overlay", "balloon");
                 circleRight.setAttribute("data-size", "big");
-                circleRight.setAttribute("data-balloonShape", "Tondo2");
+                circleRight.setAttribute("data-balloonshape", "Tondo2");
                 circleRight.setAttribute("data-amount", "2");
                 circleRight.setAttribute("data-row", `${i}`);
                 circleRight.setAttribute("data-column", `${j}`);
@@ -1661,7 +1686,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                 });//setting center of the balloon (bottom circle)
                 circleBottom.classList.add("overlay", "balloon");
                 circleBottom.setAttribute("data-size", "big");
-                circleBottom.setAttribute("data-balloonShape", "Tondo2");
+                circleBottom.setAttribute("data-balloonshape", "Tondo2");
                 circleBottom.setAttribute("data-amount", "2");
                 circleBottom.setAttribute("data-row", `${i}`);
                 circleBottom.setAttribute("data-column", `${j}`);
@@ -1686,7 +1711,7 @@ function createTwelveInXPattern(row = 4, column = 13) {
                 });//setting center of the balloon (right bottom circle)
                 circleRightBottom.classList.add("overlay", "balloon");
                 circleRightBottom.setAttribute("data-size", "small");
-                circleRightBottom.setAttribute("data-balloonShape", "Tondo1");
+                circleRightBottom.setAttribute("data-balloonshape", "Tondo1");
                 circleRightBottom.setAttribute("data-amount", "2");
                 circleRightBottom.setAttribute("data-row", `${i}`);
                 circleRightBottom.setAttribute("data-column", `${j}`);
@@ -1716,6 +1741,10 @@ function createTwelveInXPattern(row = 4, column = 13) {
 function createArch(rows) {
     const setUpValues = initialSetup(row = 0, unitheight = 0, needsUse = true);
     selectedBalloonssCount = 0;
+
+    let gTop = document.createElementNS("http://www.w3.org/2000/svg", "g");// creating the ballon object (svg circle)
+    gTop.setAttributeNS(null, "id", "useTop");
+    setUpValues.container.appendChild(gTop);
 
     // const archCenterX = setUpValues.width / 2;
     // const archCenterY = archCenterX + 50;
@@ -1761,7 +1790,7 @@ function createArch(rows) {
             "cy": `${circleCenterY}`,
         });
         // setBalloonArch(setUpValues.container, balloon);
-        balloon1.setAttribute("data-balloonShape", "Tondo");
+        balloon1.setAttribute("data-balloonshape", "Tondo");
         balloon1.setAttribute("data-amount", "1");
         balloon1.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1783,7 +1812,7 @@ function createArch(rows) {
             "cy": `${circleCenterY}`,
         });
         // setBalloonArch(setUpValues.container, balloon);
-        balloon2.setAttribute("data-balloonShape", "Tondo");
+        balloon2.setAttribute("data-balloonshape", "Tondo");
         balloon2.setAttribute("data-amount", "1");
         balloon2.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1804,9 +1833,9 @@ function createArch(rows) {
             "cx": `${circleCenterX}`,
             "cy": `${circleCenterY}`,
         });
-        balloon.classList.add("overlay", "balloon");
+        balloon.classList.add("top", "balloon");
         // setBalloonArch(setUpValues.container, balloon);
-        balloon.setAttribute("data-balloonShape", "Tondo");
+        balloon.setAttribute("data-balloonshape", "Tondo");
         balloon.setAttribute("data-amount", "2");
         balloon.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1832,7 +1861,7 @@ function createArch(rows) {
         });
         balloonTopLeft.classList.add("overlay", "balloon");
         // setBalloonArch(setUpValues.container, balloon);
-        balloonTopLeft.setAttribute("data-balloonShape", "Tondo");
+        balloonTopLeft.setAttribute("data-balloonshape", "Tondo");
         balloonTopLeft.setAttribute("data-amount", "1");
         balloonTopLeft.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
@@ -1854,7 +1883,7 @@ function createArch(rows) {
         });
         balloonTopRight.classList.add("overlay", "balloon");
         // setBalloonArch(setUpValues.container, balloon);
-        balloonTopRight.setAttribute("data-balloonShape", "Tondo");
+        balloonTopRight.setAttribute("data-balloonshape", "Tondo");
         balloonTopRight.setAttribute("data-amount", "1");
         balloonTopRight.setAttribute("data-row", `${i}`);
         selectedBalloons["Tondo"]["transparent"].selectedBalloonsIds.push({
