@@ -542,12 +542,12 @@ const setInformationTable = structure => {
  * @param {number} row row of the selected balloon
  * @param {number} column column of the selected balloon
  */
-const updateSelectedBalloon = (id, type, amount, row, column) => {
+const updateSelectedBalloon = (id, type, amount, row, column, color) => {
     if (id.indexOf("overlay") > -1) {
         id = id.substring(0, id.indexOf("overlay"));
     }
     if (selectedBalloons[type]) {
-        const color = document.getElementById('colorPicker').value;
+        //const color = document.getElementById('colorPicker').value; // new
         const infoTable = document.getElementById(type);
         if (selectedBalloons[type][color]) {
             selectedBalloons[type][color].count += parseInt(amount);
@@ -639,6 +639,12 @@ const removeFromSelectedBalloon = (key, id, type, amount, row, column) => {
 function initialSetup(row = 1, unitheight = 70, needsUse = false, rGap = 0) {
     const setUpvalues = {};
     const container = document.querySelector(".balloon-structure"); // The svg html element where we will append the balloon svg structure
+
+    container.setAttribute("data-structuretype", structureInfo.structureType);
+    container.setAttribute("data-size", document.getElementById("size").value);
+    container.setAttribute("data-rows", structureInfo.row);
+    container.setAttribute("data-columns", structureInfo.column);
+
     const width = container.clientWidth; // width of the conatiner svg element
     setUpvalues.width = width;
 
@@ -821,24 +827,23 @@ const createOverlayBalloons = (container) => {
                     }
                     const balloon = document.getElementById(ids[i].id);
                     let overlayballoon = createOverlayBalloon(key, balloon);// creating the ballon object (svg circle)
-                    overlayballoon.setAttributeNS(null, "id", `${ids[i]}overlay`);
+                    overlayballoon.setAttributeNS(null, "id", `${ids[i].id}overlay`);
                     let balloonTop = createBalloonTop(balloon); // balloon top when selected
-                    balloonTop.setAttributeNS(null, "id", `${ids[i]}balloonTop`)
+                    balloonTop.setAttributeNS(null, "id", `${ids[i].id}balloonTop`)
 
-                    let useTopContainer = document.getElementById("useTop");
+                    let useContainerTop = document.getElementById("useTop");
                     let useContainer = document.getElementById("use");
                     let use, use1;
                     if (useContainer) {
-                        use = createUse(`${ids[i]}overlay`);
-                        use1 = createUse(`${ids[i]}balloonTop`);
+                        use = createUse(`${ids[i].id}overlay`);
+                        use1 = createUse(`${ids[i].id}balloonTop`);
 
-                        if (balloon.classList.contains("overlay")) {
+                        if (balloon.classList.contains("top")) {
+                            useContainerTop.appendChild(use);
+                            useContainerTop.appendChild(use1);
+                        } else if (balloon.classList.contains("overlay")) {
                             useContainer.appendChild(use);
-
                             useContainer.appendChild(use1);
-                        } else if (balloon.classList.contains("top")) {
-                            useTopContainer.appendChild(use);
-                            useTopContainer.appendChild(use1);
                         }
                     }
 
@@ -852,7 +857,7 @@ const createOverlayBalloons = (container) => {
                             useTopContainer.removeChild(use1);
                         }
                         // remove this balloon from selected list:
-                        removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonShape"), balloon.getAttribute("data-amount"));
+                        removeFromSelectedBalloon(this.getAttributeNS(null, "fill"), balloon.getAttribute("id"), balloon.getAttribute("data-balloonshape"), balloon.getAttribute("data-amount"));
                         this.parentElement.removeChild(this.nextElementSibling);
                         this.parentElement.removeChild(this);
                     });
