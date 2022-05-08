@@ -693,7 +693,7 @@ document.getElementById("inflateBalloonsBtn").addEventListener("click", function
         for (let i = 0; i < balloons.length; i++) {
             balloons[i].setAttributeNS(null, "fill-opacity", "0.3");
             balloons[i].setAttributeNS(null, "stroke-opacity", "0.3");
-            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+            if (balloons[i].getAttribute("data-balloonshape").indexOf("Tondo") < 0) {
                 balloons[i].style.cursor = "not-allowed";
                 balloons[i].style.pointerEvents = "none";
             }
@@ -713,7 +713,7 @@ document.getElementById("inflateBalloonsBtn").addEventListener("click", function
         for (let i = 0; i < balloons.length; i++) {
             balloons[i].setAttributeNS(null, "fill-opacity", "1");
             balloons[i].setAttributeNS(null, "stroke-opacity", "1");
-            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+            if (balloons[i].getAttribute("data-balloonshape").indexOf("Tondo") < 0) {
                 balloons[i].style.cursor = "pointer";
                 balloons[i].style.pointerEvents = "auto";
             }
@@ -740,7 +740,7 @@ document.getElementById("deflateBalloonsBtn").addEventListener("click", function
         for (let i = 0; i < balloons.length; i++) {
             balloons[i].setAttributeNS(null, "fill-opacity", "0.3");
             balloons[i].setAttributeNS(null, "stroke-opacity", "0.3");
-            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+            if (balloons[i].getAttribute("data-balloonshape").indexOf("Tondo") < 0) {
                 balloons[i].style.cursor = "not-allowed";
                 balloons[i].style.pointerEvents = "none";
             }
@@ -760,7 +760,7 @@ document.getElementById("deflateBalloonsBtn").addEventListener("click", function
         for (let i = 0; i < balloons.length; i++) {
             balloons[i].setAttributeNS(null, "fill-opacity", "1");
             balloons[i].setAttributeNS(null, "stroke-opacity", "1");
-            if (balloons[i].getAttribute("data-balloonShape").indexOf("Tondo") < 0) {
+            if (balloons[i].getAttribute("data-balloonshape").indexOf("Tondo") < 0) {
                 balloons[i].style.cursor = "pointer";
                 balloons[i].style.pointerEvents = "auto";
             }
@@ -1059,7 +1059,13 @@ function svgToPng() {
     let svgContainer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svgContainer.setAttributeNS("null", "width", `${container.clientWidth}px`);
     svgContainer.setAttributeNS("null", "height", `${container.clientHeight}px`);
-    svgContainer.innerHTML = document.getElementById("allOverlays").innerHTML;
+    //svgContainer.innerHTML = document.getElementById("allOverlays").outerHTML;
+    const uses = document.querySelectorAll("g");
+    for (let i = 0; i < uses.length; i++) {
+        let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.innerHTML = uses[i].innerHTML;
+        svgContainer.appendChild(g);
+    }
     let svgString = new XMLSerializer().serializeToString(svgContainer);
 
     //let canvas = document.getElementById("canvas");
@@ -1075,7 +1081,7 @@ function svgToPng() {
         // execute drawImage statements here
         ctx.drawImage(img, 0, 0);
         png = myCanvas.toDataURL("image/png");
-        const imgContainer = document.querySelector('.balloons')
+        const imgContainer = document.querySelector('.balloons');
         imgContainer.innerHTML = `<img id="previewImage" src="${png}"/>`;
         DOMURL.revokeObjectURL(png);
     }, false);
@@ -1097,7 +1103,14 @@ document.getElementById("saveImage").addEventListener("click", function () {
 // Saving the structure background as PNG
 document.getElementById("saveWithoutGrid").addEventListener("click", function () {
     const imageContainer = document.querySelector(".structure-design-section");
-    document.querySelector(".balloon-structure").style.display = "none";
+    //document.querySelector(".balloon-structure").style.display = "none";
+
+    let balloons = document.querySelectorAll(".balloon");
+    for (let i = 0; i < balloons.length; i++) {
+        if (!balloons[i].classList.contains('selected-balloon')) {
+            balloons[i].style.display = "none";
+        }
+    }
     html2canvas(imageContainer).then(function (canvas) {
         const a = document.createElement("a");
         a.href = canvas.toDataURL();
@@ -1121,15 +1134,190 @@ document.getElementById("export-file").addEventListener("click", function () {
     document.body.removeChild(a);
 });
 
+function setSizesForImport(structure) {
+    let options = sizes[structure];
+    if (options.length == 0) {
+        document.getElementById("size-select-container").style.display = "none";
+    } else {
+        document.getElementById("size-select-container").style.display = "inline-block";
+        let sizeSlelectEl = document.getElementById("size");
+        // delete the current set of <option> elements out of the
+        // day <select>, ready for the next set to be injected
+        while (sizeSlelectEl.firstElementChild) {
+            sizeSlelectEl.removeChild(sizeSlelectEl.firstElementChild);
+        }
+
+        for (let i = 0; i < options.length; i++) {
+            let option = document.createElement('option');
+            option.textContent = options[i];
+            option.value = options[i];
+            if (structure == "Duplet Square Pack" || structure == "Column" || structure == "Arch") {
+                if (options[i] == '5"') {
+                    option.setAttribute("selected", "selected");
+                }
+            } else if (i == 0) {
+                option.setAttribute("selected", "selected");
+            }
+            sizeSlelectEl.appendChild(option);
+        }
+    }
+}
+
+function updateStructureFromImport() {
+    // New:
+    selectedBalloons = {};
+    structureInfo.updating = true;
+    //console.log(document.querySelector(".balloon-structure").getAttribute("data-structuretype"));
+    structureInfo.structureType = document.querySelector(".balloon-structure").getAttribute("data-structuretype");
+    const size = document.querySelector(".balloon-structure").getAttribute("data-size");
+    structureInfo.row = document.querySelector(".balloon-structure").getAttribute("data-rows");
+    structureInfo.column = document.querySelector(".balloon-structure").getAttribute("data-columns");
+
+    document.getElementById('structure').value = structureInfo.structureType;
+    setSizesForImport(structureInfo.structureType)
+    setInformationTable(structure = structureInfo.structureType);
+
+    let balloons = document.querySelectorAll(".balloon");
+    for (let i = 0; i < balloons.length; i++) {
+        if (balloons[i].classList.contains("selected-balloon")) {
+            if (balloons[i].getAttributeNS(null, "id").indexOf("overlay") < 0) {
+                updateSelectedBalloon(balloons[i].getAttribute("id"), balloons[i].getAttribute("data-balloonshape"), balloons[i].getAttribute("data-amount"), balloons[i].getAttribute("data-row"), balloons[i].getAttribute("data-column"), balloons[i].getAttribute("data-color"));
+            }
+        }
+    }
+    setBtns(structure);
+    resetStructure();
+
+    document.querySelector(".balloon-structure").innerHTML = null;
+
+    document.querySelector(".balloon-structure").addEventListener("mousedown", function (event) {
+        const addMultipleEnabled = document.getElementById("activateDragColoring").getAttribute("data-state");
+        if (addMultipleEnabled == "enabled") {
+            addMultiple = true;
+        } else {
+            addMultiple = false;
+        }
+
+        if (addMultiple) {
+            startX = event.offsetX;
+            startY = event.offsetY;
+        } else {
+            if (!inflateBalloonNew && !deflateBalloonNew) {
+                if (event.target.classList.contains("selected-balloon") || event.target.classList == "") {
+                    addBalloon = false;
+                    removeBalloon = true;
+                } else {
+                    removeBalloon = false;
+                    addBalloon = true;
+                }
+            }
+        }
+    }, true);
+    document.querySelector(".balloon-structure").addEventListener("mousemove", function (event) {
+        if (startX >= 0 && startY >= 0) {
+            color = !event.altKey;
+            if (addMultiple) {
+                endX = event.offsetX;
+                endY = event.offsetY;
+                let attributes = {
+                    "x": `${((startX <= endX) ? startX : endX) + 2.5}`,
+                    "y": `${((startY <= endY) ? startY : endY) + 2.5}`,
+                    "width": `${Math.abs(endX - startX)}`,
+                    "height": `${Math.abs(endY - startY)}`,
+                    "stroke": "#333310",
+                    "stroke-width": "5",
+                    "fill": "rgba(255,255,0,0.4)"
+                }
+                if (event.altKey) {
+                    attributes["stroke-dasharray"] = "20,20";
+                } else {
+                    attributes["stroke-dasharray"] = "null";
+                }
+                setAllAttributes(boundingBox, attributes);
+                this.appendChild(boundingBox);
+            } else {
+                updateSelection(color);
+                if (this.contains(boundingBox)) {
+                    this.removeChild(boundingBox);
+                }
+            }
+        }
+    });
+
+    document.querySelector(".balloon-structure").addEventListener("mouseup", function (event) {
+        addBalloon = false;
+        removeBalloon = false;
+        if (this.contains(boundingBox)) {
+            this.removeChild(boundingBox);
+        }
+        if (addMultiple) {
+            updateSelection(color);
+            addMultiple = false;
+            startX = -1;
+            startY = -1;
+            endX = -1;
+            endY = -1;
+        }
+    });
+
+
+    document.querySelector(".balloon-structure").addEventListener("mouseleave", function (event) {
+        addBalloon = false;
+        removeBalloon = false;
+        if (this.contains(boundingBox)) {
+            this.removeChild(boundingBox);
+        }
+        if (addMultiple) {
+            updateSelection(color);
+            addMultiple = false;
+            startX = -1;
+            startY = -1;
+            endX = -1;
+            endY = -1;
+        }
+    });
+
+    createDeisgn(structure = structureInfo.structureType, row = structureInfo.row, column = structureInfo.column);
+    changeDimension(structureInfo.structureType, size);
+}
+// New: 
+var support = (function () {
+    if (!window.DOMParser) return false;
+    var parser = new DOMParser();
+    try {
+        parser.parseFromString('x', 'text/html');
+    } catch (err) {
+        return false;
+    }
+    return true;
+})();
+
+var textToHTML = function (str) {
+
+    // check for DOMParser support
+    if (support) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(str, 'text/html');
+        return doc.body.innerHTML;
+    }
+
+    // Otherwise, create div and append HTML
+    var dom = document.createElement('div');
+    dom.innerHTML = str;
+    return dom;
+
+};
+//
 // loading previous design from a text file(Import)
 document.getElementById("importFile").addEventListener("change", function () {
     let fr = new FileReader();
     fr.readAsText(this.files[0]);//event.target.files[0]
 
-    fr.addEventListener("load", function () {
-        document.querySelector(".structure-design-section").innerHTML = fr.result;
+    fr.addEventListener("load", function (event) {
+        document.querySelector(".structure-design-section").innerHTML = textToHTML(event.target.result);
+        updateStructureFromImport();
     });
-});
+}, false);
 
 // Update(Refresh) new balloon design in the background
 document.querySelector(".refresh-balloons-sfondo").addEventListener("click", function () {
